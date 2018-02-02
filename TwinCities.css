@@ -1,0 +1,46 @@
+#italic
+{
+	font-style: italic;
+}
+
+.red
+{
+	color: red;
+}
+
+
+input, textarea
+{
+  position: absolute;
+  left: 15%;
+  width: 50%;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-color: grey;
+  border-radius: 3px;
+}
+
+#DOB
+{
+  width: 25%;
+}
+
+select
+{
+  position: absolute;
+  left: 15%;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-color: grey;
+  border-radius: 3px;
+}
+
+#submit
+{
+	width: 10%;
+	border-color: black;
+	background-color: black;
+	color: white;
+}
