@@ -1,4 +1,3 @@
-
 Example Site
 
 https://html5up.net/alpha
