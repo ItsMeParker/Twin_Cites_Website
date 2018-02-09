@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+# file name    : twin_city_xml.xml
+# purpose      : assignment website configuration file
+# author       : Alex Foulds, Rob Fry, Connor Parker, Agustin Ovari
+# version      : 2.0  - adding API keys
+# cities       : Leicester & Strasbourg
+
+-->
+
+<twin_city_config>
+
+    <environments>
+        <xammp_environment>
+            <base_url><!-- web link for file locations --></base_url>
+            <base_path><!-- file link for files--></base_path>
+            <my_sql>
+                <server><!-- server name --></server>
+                <database><!-- database name--></database>
+                <username><!-- MySQL username--></username>
+                <pword><!-- MySQL password--></pword>
+            </my_sql>
+        </xammp_environment>
+
+        <uwe_final_environment>
+            <base_url><!-- UWE link for file locations --></base_url>
+            <base_path><!-- UWE file link for files--></base_path>
+            <my_sql>
+                <server><!-- server name --></server>
+                <database><!-- database name--></database>
+                <username><!-- MySQL username--></username>
+                <pword><!-- MySQL password--></pword>
+            </my_sql>
+        </uwe_final_environment>
+    </environments>
+
+    <api_map_key>AIzaSyCjqXifq3hv740gNdHTTkZgKJd7W_BqFB4</api_map_key>
+    <api_weather_key></api_weather_key>
+
+    <!--
+    For use in the individual tasks
+    -->
+    <api_flickr_key>37905c305bb608f91b673f9e2a4521b4</api_flickr_key>
+    <api_flickr_secret>c8e7bf8f966a1638</api_flickr_secret>
+    <!--    -->
+
+
+    <cities>
+        <city name="Leicester" woeid="26062">
+            <google_map><!-- google map link--></google_map>
+            <news_rss><!-- RSS news feed--></news_rss>
+            <attractions>
+                <attractionX><!--attraction X photo feed link--></attractionX>
+            </attractions>
+
+            <!--
+            <photo_feed>
+                <flickr></flickr>
+                <instagram></instagram>
+            </photo_feed>
+            -->
+
+
+        </city>
+
+        <city name="Strasbourg" woeid="627791">
+            <google_map><!-- google map link--></google_map>
+            <news_rss><!-- RSS news feed--></news_rss>
+            <attractions>
+                <attractionX><!--attraction X photo feed link--></attractionX>
+            </attractions>
+
+            <!--
+            <photo_feed>
+                <flickr></flickr>
+                <instagram></instagram>
+            </photo_feed>
+            -->
+
+        </city>
+    </cities>
+
+</twin_city_config>
