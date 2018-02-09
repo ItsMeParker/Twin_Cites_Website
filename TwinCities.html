@@ -1,54 +1,35 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-	<head>
-		<title> Quote Entry </title>
-		<link rel="stylesheet" type="text/css" href="quote_input.css" />
-	</head>
+<div class="container-fluid">
+  <h1>Example Page Heade</h1>
 
-	<body>
-
-		<header>
-			<h3 id="italic" class="red">Enter Your Quote</h3>
-		</header>
-
-		<section>
-
-      <form action="form_input.php" method="post">
-          Quote <tag class="red">* </tag>
-          <textarea name="quote" rows="6" cols="50" placeholder="Enter the quote here" required></textarea>
-
-          </br></br></br></br></br></br></br>
-          Source <tag class="red">* </tag>
-          <input type="text" name="source" size="50" placeholder="Enter the author or source name here" required>
-
-          </br></br></br>
-          DOB-DOD <tag class="red">* </tag>
-          <input id="DOB" type="text" name="DOB-DOD" placeholder="Enter the DOB-DOD here" required>
-
-          </br></br></br>
-          WP Link <tag class="red">* </tag>
-          <input type="text" name="WPLink" placeholder="Enter the link to the sources Wikipedia page here" required>
-
-          </br></br></br>
-          WP Image <tag class="red">* </tag>
-          <input type="text" name="WPImage" placeholder="Enter the link to the source's image on Wikipedia here" required>
-
-          </br></br></br>
-          Category
-
-          <select name="Category">
-            <option value="romatic"> Romantic </option>
-            <option value="political"> Political </option>
-            <option value="humerous"> Humerous </option>
-          </select>
-
-          </br></br></br>
-          <input id="submit" type="submit" name="submitQuote" value="Submit"/>
-
-      </form>
-
-		</section>
-
-	</body>
-
+  <p>Resize the browser window to see the effect.</p>
+  <div class="row">
+    <div class="col-sm-0 col-md-2 col-lg-2" style="background-color:yellow;">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-8" style="background-color:pink;">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </div>
+    <div class="col-sm-0 col-md-0 col-lg-0" style="background-color:yellow;">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </div>
+    <div class="col-sm-0 col-md-2 col-lg-2" style="background-color:pink;">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </div>
+  </div>
+</div>
+    
+</body>
 </html>
