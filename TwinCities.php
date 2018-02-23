@@ -22,11 +22,26 @@
   <div class="row">
 
     <div class="col-sm-12 col-md-12 col-lg-12" id="cityButtonsContainer">
-        This will have the buttons to change the city displayed in the middle
 
-        background needs to be clear so that background image shows through
+        <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3 verticalMiddle sideBar">
+            <!-- has no content --> 
+        </div>
 
-        
+        <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3 verticalMiddle">
+
+            <button type="button" class="btn btn-primary btn-block btn-lg">Leicester </button>
+
+        </div>
+
+        <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3 verticalMiddle">
+
+            <button type="button" class="btn btn-primary btn-block btn-lg verticalMiddle">Strasbourg</button>
+
+        </div>
+
+        <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3 verticalMiddle sideBar">
+            <!-- has no content --> 
+        </div>
 
     </div>
 
