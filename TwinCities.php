@@ -1,8 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Twin Cities</title>
     <meta charset="utf-8">
+    <
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,17 +19,14 @@
 
 <div class="container-fluid" id="backgroundWithImage">
 
-
-  <h1>Example Page Header</h1>
-
   <div class="row">
 
-    <div class="col-sm-12 col-md-12 col-lg-12" style="border: 2px solid black;">
+    <div class="col-sm-12 col-md-12 col-lg-12" id="cityButtonsContainer">
         This will have the buttons to change the city displayed in the middle
 
         background needs to be clear so that background image shows through
 
-        <br/><br/><br/><br/><br/><br/><br/>
+        
 
     </div>
 
@@ -38,30 +35,30 @@
 <!-- end of one row --> 
 
   <div class="row">
-    <div class="hidden-xs hidden-sm col-md-2 col-lg-2" style="background-color:yellow;">
-        This is the left spacer bar that will dissapear when width is sm or smaller
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
+        <!-- has no content --> 
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8  well" style="background-color:pink;">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8  well mainSection">
         This will be the main section of th page holding the map with weather underneath when size is md of smaller
     
         <div class="row">
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10  well" style="background-color:violet;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10  well subSection">
                 This will be the container holding the map
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
         
         
-            <div class="hidden-xs hidden-sm hidden-md col-lg-2  well" style="background-color:orange;">
+            <div class="hidden-xs hidden-sm hidden-md col-lg-2  well subSection">
                 This will be the TODAYS weather bar to the side of the map that only appears when width is lg or bigger
             </div>
         </div>
 
         <div class="row">        
         
-            <div class="col-xs-12 col-sm-12 col-md-12 hidden-lg well" style="background-color:orange;">
+            <div class="col-xs-12 col-sm-12 col-md-12 hidden-lg well subSection">
                 This will be the TODAYS weather bar underneath the map that only appears when width is md or smaller
             </div>
 
@@ -69,7 +66,7 @@
 
         <div class="row">        
         
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well" style="background-color:orange;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
                 AREA BOX Contains info on location (city itself) chosen on map
 
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -78,29 +75,27 @@
 
         </div>
 
-
-
     </div>
 
-    <div class="hidden-xs hidden-sm col-md-2 col-lg-2" style="background-color:yellow;">
-        This is the right spacer bar that will dissapear when width is sm or smaller
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
+        <!-- has no content --> 
     </div>
   </div> 
 
 <!-- end of one row --> 
 
   <div class="row">
-    <div class="hidden-xs hidden-sm col-md-2 col-lg-2" style="background-color:yellow;">
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
         This is the left spacer bar that will dissapear when width is sm or smaller
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 well" style="background-color:pink;">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 well mainSection">
         
         <h2> Image Gallery </h2>
 
         <div class="row">        
         
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well" style="background-color:green;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
                 Image stuff will be in thumbnails which allows for captions underneath
 
 
@@ -147,7 +142,7 @@
 
         <div class="row">        
         
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well" style="background-color:lightblue;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
                 PLACE OF INTEREST INFO
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
@@ -156,7 +151,7 @@
 
     </div>
 
-    <div class="hidden-xs hidden-sm col-md-2 col-lg-2" style="background-color:yellow;">
+    <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
         This is the right spacer bar that will dissapear when width is sm or smaller
     </div>
   </div> 

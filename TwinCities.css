@@ -1,25 +1,66 @@
+
+/*************************/
+/* CSS ID definitions    */
+/*************************/
+
 #backgroundWithImage
 {
 
-    background-image: url("https://cdn.pixabay.com/photo/2013/04/06/11/50/image-editing-101040_960_720.jpg") ;
+    background-image : url("http://www.telegraph.co.uk/content/dam/Travel/galleries/travel/picturegalleries/The-worlds-best-city-skylines/skyline-toronto_3461626a.jpg") ;
     background-position: left top;
-    background-repeat: no-repeat;
-    background-color: #e5e5e5;
-    background-size:100% 25%;
+    background-repeat : no-repeat;
+    background-color : #e5e5e5;
+    background-size :100% 25%;
 
 }
 
+#cityButtonsContainer
+{
+
+  height: 35%;
+
+}
+
+/*************************/
+/* CSS class definitions */
+/*************************/
+
+.sideBar
+{
+
+  visibility: hidden;
+
+}
+
+.mainSection
+{
+
+  background-color : beige;
+
+}
+
+.subSection
+{
+
+  background-color : lightblue;
+
+}
+
+
+
+
+/**************************************************/
+/* CSS for original form below remove if not used */
+/**************************************************/
 #italic
 {
-	font-style: italic;
+  font-style: italic;
 }
 
 .red
 {
-	color: red;
+  color: red;
 }
-
-
 
 input, textarea
 {
