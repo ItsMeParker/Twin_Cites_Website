@@ -40,7 +40,7 @@
     <api_weather_key></api_weather_key>
 
     <!--
-    For use in the individual tasks
+    From the Flikr individual task
     -->
     <api_flickr_key>37905c305bb608f91b673f9e2a4521b4</api_flickr_key>
     <api_flickr_secret>c8e7bf8f966a1638</api_flickr_secret>
@@ -55,12 +55,7 @@
                 <attractionX><!--attraction X photo feed link--></attractionX>
             </attractions>
 
-            <!--
-            <photo_feed>
-                <flickr></flickr>
-                <instagram></instagram>
-            </photo_feed>
-            -->
+            
 
 
         </city>
@@ -72,12 +67,7 @@
                 <attractionX><!--attraction X photo feed link--></attractionX>
             </attractions>
 
-            <!--
-            <photo_feed>
-                <flickr></flickr>
-                <instagram></instagram>
-            </photo_feed>
-            -->
+            
 
         </city>
     </cities>
