@@ -14,9 +14,7 @@ function loadDetailsOf(city)
 {
     myMap(city);
 
-    todaysWeatherVertical(city)
-
-    todaysWeatherHorizontal(city)
+    weather(city)
 
     cityInfo(city)
 
@@ -32,7 +30,7 @@ function myMap(city)
 // https://gis.stackexchange.com/questions/183248/how-to-get-polygon-boundaries-of-city-in-json-from-google-maps-api
    
     // set map to be centered on city selected and passed in
-    if (city == 'Leic') 
+    if (city == 1) 
     {     
 
         var mapOptions = 
@@ -43,7 +41,7 @@ function myMap(city)
         };
 
     }
-    else if (city == 'Stra')
+    else if (city == 0)
     {
 
        var  mapOptions = 
@@ -59,7 +57,7 @@ function myMap(city)
     var map = new google.maps.Map(document.getElementById("googleMap"),mapOptions);
 
     // place markers in places of interest in each city
-    if (city == 'Leic') 
+    if (city == 1) 
     {     
         var theBestPlace = new google.maps.LatLng(52.6432064,-1.1296815);
 
@@ -111,18 +109,18 @@ function myMap(city)
         flightPath.setMap(map);
 
     }
-    else if (city == 'Stra')
+    else if (city == 0)
     {                                  //48.5696602,7.7447545
-         var s0 = new google.maps.LatLng(48.6337699,7.8359951); 
-         var s1 = new google.maps.LatLng(48.6331977,7.8357830); 
-         var s2 = new google.maps.LatLng(48.6252365,7.8331508); 
-         var s3 = new google.maps.LatLng(48.6203689,7.8305869); 
-         var s4 = new google.maps.LatLng(48.6199760,7.8303794); 
-         var s5 = new google.maps.LatLng(48.6198692,7.8303232); 
-         var s6 = new google.maps.LatLng(48.5925788,7.8048238); 
-         var s7 = new google.maps.LatLng(48.5921134,7.8044891); 
-         var s8 = new google.maps.LatLng(48.5888442,7.8021411); 
-         var s9 = new google.maps.LatLng(48.5840377,7.8002915); 
+        var  s0 = new google.maps.LatLng(48.6337699,7.8359951); 
+        var  s1 = new google.maps.LatLng(48.6331977,7.8357830); 
+        var  s2 = new google.maps.LatLng(48.6252365,7.8331508); 
+        var  s3 = new google.maps.LatLng(48.6203689,7.8305869); 
+        var  s4 = new google.maps.LatLng(48.6199760,7.8303794); 
+        var  s5 = new google.maps.LatLng(48.6198692,7.8303232); 
+        var  s6 = new google.maps.LatLng(48.5925788,7.8048238); 
+        var  s7 = new google.maps.LatLng(48.5921134,7.8044891); 
+        var  s8 = new google.maps.LatLng(48.5888442,7.8021411); 
+        var  s9 = new google.maps.LatLng(48.5840377,7.8002915); 
         var s10 = new google.maps.LatLng(48.5833969,7.8002867); 
         var s11 = new google.maps.LatLng(48.5826911,7.8002815); 
         var s12 = new google.maps.LatLng(48.5786666,7.8002500); 
@@ -204,16 +202,21 @@ function myMap(city)
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function() {scrollFunction()};
 
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+function scrollFunction() 
+{
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) 
+    {
         document.getElementById("returnBtn").style.display = "block";
-    } else {
+    } 
+    else 
+    {
         document.getElementById("returnBtn").style.display = "none";
     }
 }
 
 // When the user clicks on the button, scroll to the top of the document
-function topScroll() {
+function topScroll() 
+{
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }
@@ -226,33 +229,53 @@ function locationScroll()
 }
 
 // will populate the vertical box next to the map with todays weather data
-function todaysWeatherVertical(city)
+function weather(city)
 {
 
+    var todayVertical = document.getElementById("todaysWeatherVertical");
+    var todayHorizontal = document.getElementById("todaysWeatherHorizontal");
+    var forcast = document.getElementById("weatherForecast");
 
+    $.ajax({
 
-    document.getElementById("todaysWeatherVertical")
+        url:"Weather.php" + "?cid=" + city
+        ,
+        dataType: 'json',
+    
+        error: function()
+        {
+            todayVertical.innerHTML = "weather fetching failed";
+            todayHorizontal.innerHTML = "weather fetching failed";
+            forcast.innerHTML = "weather fetching failed";
+        },
+    
+        success: function(data)
+        {
+            // debugging 
+            console.log(data);
 
-}
+            todayVertical.innerHTML = "not weather fetching failed";
+            todayHorizontal.innerHTML = "not weather fetching failed";
 
-// will populate the horizontal box below the map with todays weather data
-function todaysWeatherHorizontal(city)
-{
+            for (i = 0; i < data.forcast.length; i++) 
+            { 
+                for (j = 0; j < data.forcast.i.length; j++) 
+                {
+                    forcast.innerHTML += data.forcast.i.j;
+                    forcast.innerHTML += "<br>";
+                }
+                forcast.innerHTML += "<p> end of one day </p>";
+            }
+            
+        },
+        type: 'GET'
 
-
+    });
 
 }
 
 // will populate the box below the map/horizontal weather with info about the selected city
 function cityInfo(city)
-{
-
-
-
-}
-
-// will populate the horizontal box below the city info with the forecast weather data
-function todaysWeatherHorizontal(city)
 {
 
 
@@ -265,7 +288,7 @@ function locationInfo(location)
     var content = ""
 
     // default output before any location has been chosen
-    if ((location == 'Leic') || (location == 'Stra'))
+    if ((location == 1) || (location == 0))
     {
 
         content = ` <h1> Looks like you haven't chosen a location on the map yet! </h1>
