@@ -28,19 +28,26 @@
 
             <div class="col-sm-12 col-md-12 col-lg-12" id="cityButtonsContainer">
 
+
+
+
+                    <!-- dynamically generate number of buttons based on number of entries in database --> 
+
+
+
                 <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3 verticalMiddle sideBar">
                     <!-- has no content --> 
                 </div>
 
                 <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3 verticalMiddle">
 
-                    <button type="button" class="btn btn-primary btn-block btn-lg" onclick="loadDetailsOf('Leic')">Leicester </button>
+                    <button type="button" class="btn btn-primary btn-block btn-lg" onclick="loadDetailsOf('1')">Leicester </button>
 
                 </div>
 
                 <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3 verticalMiddle">
 
-                    <button type="button" class="btn btn-primary btn-block btn-lg" onclick="loadDetailsOf('Stra')">Strasbourg</button>
+                    <button type="button" class="btn btn-primary btn-block btn-lg" onclick="loadDetailsOf('0')">Strasbourg</button>
 
                 </div>
 
@@ -192,7 +199,7 @@
     </div> <!-- end of container-fluid --> 
 
     <!-- load the details of leicester by default -->
-    <script> loadDetailsOf('Leic') </script>  
+    <script> loadDetailsOf(1) </script>  
 
 </body>
 </html>
