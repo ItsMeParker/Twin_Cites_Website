@@ -82,6 +82,8 @@ function myMap(city)
             // load location info 
             loadDetailsOf('bestPlace');
 
+            // THIS MAY BE WHAT IS KILLING THE DAMNED MAP BECAUSE IT THINKS IT CANT BE SEEN
+
             // scroll view to the div with loaction details
             locationScroll();
         });
