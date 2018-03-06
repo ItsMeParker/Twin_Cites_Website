@@ -28,7 +28,31 @@ function myMap(city)
 
 // ADVANCED: generate polygon as per instructions below
 // https://gis.stackexchange.com/questions/183248/how-to-get-polygon-boundaries-of-city-in-json-from-google-maps-api
-   
+    var places;
+
+    $.ajax({
+
+        url:"PlacesOfInterest.php" + "?cid=" + city
+        ,
+        dataType: 'json',
+    
+        error: function()
+        {
+
+        },
+    
+        success: function(data)
+        {
+            // debugging 
+            console.log(data);
+            places = data;
+        },
+        type: 'GET',
+        async: false
+
+    });
+
+
     // set map to be centered on city selected and passed in
     if (city == 1) 
     {     
@@ -36,7 +60,7 @@ function myMap(city)
         var mapOptions = 
         {
             center: new google.maps.LatLng(52.6342853,-1.1415731),
-            zoom:13,
+            zoom:12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
@@ -56,48 +80,84 @@ function myMap(city)
     // create instance of map within googleMap div
     var map = new google.maps.Map(document.getElementById("googleMap"),mapOptions);
 
-    // place markers in places of interest in each city
+    var infowindow = new google.maps.InfoWindow({
+        content:"Hello World!"
+    });
+
+    var newMarker;
+    var newPlace;
+    var placeDescription = "";
+    var placeWebsite;
+    for (var i = 0; i < places.length; i++)
+    {
+
+        newPlace = new google.maps.LatLng(places[i].geocode_latitude , places[i].geocode_longitude);
+        newMarker = new google.maps.Marker({position:newPlace});
+        newMarker.setMap(map);
+
+        placeDescription = places[i].attraction_name + "<br/>";
+        if (places[i].rating != -1)
+        {
+            placeDescription += "Rating: " + places[i].rating;
+        }
+        with({ placeDescription:placeDescription})
+        {
+            google.maps.event.addListener(newMarker,'mouseover',function() 
+            {
+                console.log(placeDescription);
+                infowindow.setContent(placeDescription);
+                infowindow.open(map,this);
+            });
+        }
+
+        placeWebsite = places[i].website;
+        with({ placeWebsite:placeWebsite})
+        {
+            google.maps.event.addListener(newMarker,'click',function() 
+            {
+                console.log(placeWebsite);
+                var win = window.open(placeWebsite, '_blank');
+                win.focus();
+            });
+        }
+
+    }
+
+
+    // create polygon around each city outline as found here: http://www.gadm.org/country
+    // according to following instructon from: https://gis.stackexchange.com/questions/183248/how-to-get-polygon-boundaries-of-city-in-json-from-google-maps-api
+    // 1) Go to www.gadm.org/country
+    // 2) Choose your country and select Google Earth .kmz file format
+    // 3) Choose the level you need (level 3 is the deepest with all small towns/cities)
+    // 4) Download the file (can be large)
+    // 5) Unzip the .kmz file (You'll find a .kml which is XML)
+    // 6) Open it with Sublime or notepad++ (the file will probably be too large for other text editor)
+    // 7) Search by city name and copy data below (Search can take 1 to 4 seconds with large file)
     if (city == 1) 
     {     
-        var theBestPlace = new google.maps.LatLng(52.6432064,-1.1296815);
 
-        var marker = new google.maps.Marker({position:theBestPlace});
-        marker.setMap(map);
-
-        // possible events https://developers.google.com/maps/documentation/javascript/events
-
-        google.maps.event.addListener(marker,'mouseover',function() 
-        {
-            var infowindow = new google.maps.InfoWindow({
-                content:"Hello World!"
-            });
-            infowindow.open(map,marker);
-        });
-
-        google.maps.event.addListener(marker,'click',function() 
-        {
-
-            // load location info 
-            loadDetailsOf('bestPlace');
-
-            // THIS MAY BE WHAT IS KILLING THE DAMNED MAP BECAUSE IT THINKS IT CANT BE SEEN
-
-            // scroll view to the div with loaction details
-            locationScroll();
-        });
-                                     // 52.6432064,-1.1296815
-
-
-        var l0 = new google.maps.LatLng(52.5955352,-1.0641870);
-        var l1 = new google.maps.LatLng(52.5653495,-1.1220409);
-        var l2 = new google.maps.LatLng(52.5754127,-1.1673209);
-        var l3 = new google.maps.LatLng(52.6181755,-1.1798969);
-        var l4 = new google.maps.LatLng(52.6382980,-1.1798969);
-        var l5 = new google.maps.LatLng(52.6559066,-1.1597739);
-        var l6 = new google.maps.LatLng(52.6559066,-1.1195269);
-        var l7 = new google.maps.LatLng(52.6483573,-1.0717339);
-        var l8 = new google.maps.LatLng(52.6232032,-1.0566409);
-        var l9 = new google.maps.LatLng(52.5955352,-1.0641870);
+// original values taken from gadm.org
+// 52.5955352,-1.0641870
+// 52.5653495,-1.1220409
+// 52.5754127,-1.1673209
+// 52.6181755,-1.1798969
+// 52.6382980,-1.1798969
+// 52.6559066,-1.1597739
+// 52.6559066,-1.1195269
+// 52.6483573,-1.0717339
+// 52.6232032,-1.0566409
+// 52.5955352,-1.0641870
+// new value with 0.02 added to more closely match the actual boundaries of leicester
+        var l0 = new google.maps.LatLng(52.6155352,-1.0841870);
+        var l1 = new google.maps.LatLng(52.5853495,-1.1420409);
+        var l2 = new google.maps.LatLng(52.5954127,-1.1873209);
+        var l3 = new google.maps.LatLng(52.6381755,-1.1998969);
+        var l4 = new google.maps.LatLng(52.6582980,-1.1998969);
+        var l5 = new google.maps.LatLng(52.6759066,-1.1797739);
+        var l6 = new google.maps.LatLng(52.6759066,-1.1395269);
+        var l7 = new google.maps.LatLng(52.6683573,-1.0917339);
+        var l8 = new google.maps.LatLng(52.6432032,-1.0766409);
+        var l9 = new google.maps.LatLng(52.6155352,-1.0841870);
 
         var flightPath = new google.maps.Polygon({
             path: [l0, l1, l2, l3, l4, l5, l6, l7, l8, l9],
@@ -256,9 +316,9 @@ function weather(city)
             // debugging 
             console.log(data);
 
-            todayVertical.innerHTML += "<div class=\"well\" style=\"padding:10px;\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
+            todayVertical.innerHTML = "<div class=\"well\" style=\"padding:10px;\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
 
-            todayHorizontal.innerHTML += "<div class=\"well\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
+            todayHorizontal.innerHTML = "<div class=\"well\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
 
             var weatherOutput = "<h3> Forecast </h3> <br/>"
 
@@ -300,7 +360,65 @@ function weather(city)
 function cityInfo(city)
 {
 
+    var cityInfo = document.getElementById("cityInfo");
 
+    $.ajax({
+
+        url:"CityInfo.php" + "?cid=" + city
+        ,
+        dataType: 'json',
+    
+        error: function()
+        {
+            cityInfo.innerHTML = "City info retrieval failed"
+        },
+    
+        success: function(data)
+        {
+            // debugging 
+            console.log(data);
+            
+            cityInfo.innerHTML = `
+
+            <div class=\"well\"> 
+                <h2> Welcome to ` + data.city[0].city_name + `</h2> <br/>
+                Population: ` + data.city[0].population + `<br/>
+                County: ` + data.city[0].county_state + `<br/>
+                Area: ` + data.city[0].area + ` km squared<br/>
+                Currency: ` + data.city[0].currency + `<br/>
+                Primary Language: ` + data.city[0].primary_language + `<br/>
+                The woeid of the weather station we check is: ` + data.city[0].woeid + `<br/>
+                Wikipedia Link: <a href=` + data.city[0].wiki_link + `>` + data.city[0].city_name + `</a><br/><br/>
+
+                ` + data.city[0].city_name + ` is located within ` + data.country[0].country_name + `<br/>
+                ` + data.country[0].country_name + ` has a population of ` + data.country[0].population + `<br/>
+                The national language is ` + data.country[0].national_language + `<br/>
+                ` + data.country[0].country_name + ` has a GDP of ` + data.country[0].gdp + `<br/>
+                Wikipedia Link: <a href=` + data.country[0].wiki_link + `>` + data.country[0].country_name + `</a><br/><br/>
+            </div>`;
+
+// {"city":[{"city_name":"Leicester"
+//          ,"geocode_latitude":"52.636959"
+//          ,"geocode_longitude":"-1.129040"
+//          ,"woeid":"26062"
+//          ,"county_state":"Leicestershire"
+//          ,"country":"1"
+//          ,"population":"329"
+//          ,"area":"28"
+//          ,"currency":"Pounds"
+//          ,"primary_language":"English"
+//          ,"wiki_link":"https:\/\/en.wikipedia.org\/wiki\/Leicester"}]
+// ,"country":[{"country_id":"1"
+//          ,"country_name":"UK"
+//          ,"population":"100"
+//          ,"national_language":"English"
+//          ,"gdp":"1200"
+//          ,"wiki_link":"www.wikipedia.com\/UnitedKingdom"}]}
+
+        },
+        type: 'GET'
+
+    });
 
 }
 
