@@ -47,7 +47,7 @@
 
                 <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3 verticalMiddle">
 
-                    <button type="button" class="btn btn-primary btn-block btn-lg" onclick="loadDetailsOf('0')">Strasbourg</button>
+                    <button type="button" class="btn btn-primary btn-block btn-lg" onclick="loadDetailsOf('2')">Strasbourg</button>
 
                 </div>
 
@@ -107,7 +107,9 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
 
-                        <div id="weatherForecast"> </div>
+                        <div id="weatherForecast"> 
+
+                        </div>
 
                     </div>
 
