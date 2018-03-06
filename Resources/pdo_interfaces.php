@@ -129,7 +129,7 @@ function create_city($woeid, $county, $wikilink, $population, $currency, $area, 
         'currency'=>$currency,
         'lan'=>$language,
         'wiki'=>$wikilink
-    );
+        );
 
     // insert data to database
     try
@@ -167,13 +167,31 @@ function create_country($country, $population, $language, $gdp, $wiki, &$conn)
             'lan' => $language,
             'gdp' => $gdp,
             'wiki' => $wiki,
-        );
+            );
         $key_id = insert_to($conn, $query, $params);
     }catch (Exception $ex)
     {
         $key_id = -1;
     }
     return $key_id;
+}
+
+/**
+ * Returns a countrys id by searching for the record with a matching name
+ *
+ * On failing to find a country or if the database is improperly configured e.g. missing the country table
+ * this function will return an empty array.
+ * @param $cid string
+ * @param $conn PDO
+ * @return array
+ */
+function get_country_data($cid, &$conn)
+{
+    $query = 'SELECT `country_id`, `country_name`, `population`, `national_language`, `gdp`, `wiki_link` FROM `country` WHERE `country_id` = :cid';
+    $param = array(
+        'cid' => $cid
+        );
+    return retrieve_data($conn, $query, $param);
 }
 
 /**
@@ -192,7 +210,7 @@ function get_country_id($name, &$conn)
         $query = 'SELECT country_id FROM country WHERE country_name = :country';
         $param = array(
             'country' => $name
-        );
+            );
         $result = retrieve_data($conn, $query, $param);
     }catch (Exception $ex)
     {
@@ -228,20 +246,20 @@ function update_weather($city_id, &$conn)
     }
 
     $query = 'INSERT INTO weather (city_id, last_checked, published_at, current_temp, weather_code)
-              VALUES (:cid , current_timestamp, from_unixtime(:published), :temp, :weather)
-              ON DUPLICATE KEY UPDATE
-                city_id = VALUES(city_id),
-                last_checked = VALUES(last_checked),
-                published_at = VALUES(published_at),
-                current_temp = VALUES(current_temp),
-                weather_code = VALUES(weather_code)';
+    VALUES (:cid , current_timestamp, from_unixtime(:published), :temp, :weather)
+    ON DUPLICATE KEY UPDATE
+    city_id = VALUES(city_id),
+    last_checked = VALUES(last_checked),
+    published_at = VALUES(published_at),
+    current_temp = VALUES(current_temp),
+    weather_code = VALUES(weather_code)';
 
     $param = array(
         'cid' => $city_id,
         'published' => strtotime($php_obj->channel->item->pubDate),
         'temp' => $php_obj->channel->item->condition->temp,
         'weather' => $php_obj->channel->item->condition->code,
-    );
+        );
 
     try {
         insert_to($conn, $query, $param);
@@ -268,7 +286,7 @@ function get_city_woeid($cityid, &$conn)
     $query = 'SELECT woeid FROM city WHERE city_id = :cid';
     $param = array(
         'cid' => $cityid,
-    );
+        );
     try{
         $result = retrieve_data($conn, $query, $param);
         if(sizeof($result) === 0)
@@ -309,11 +327,11 @@ function update_forecast($city_id, $yahoo_weather_data, &$conn)
     }
     $query = rtrim($query, ',');
     $query .= ' ON DUPLICATE KEY UPDATE
-                city_id = VALUES(city_id),
-                date_offset = VALUES(date_offset),
-                weather_code = VALUES(weather_code),
-                temp_high = VALUES(temp_high),
-                temp_low = VALUES(temp_low)';
+    city_id = VALUES(city_id),
+    date_offset = VALUES(date_offset),
+    weather_code = VALUES(weather_code),
+    temp_high = VALUES(temp_high),
+    temp_low = VALUES(temp_low)';
     insert_to($conn, $query, $param);
 
 }
@@ -329,13 +347,13 @@ function update_forecast($city_id, $yahoo_weather_data, &$conn)
 function get_weather_data($cityid, &$conn)
 {
     $query = 'SELECT last_checked, published_at, current_temp, description
-              FROM weather
-              INNER JOIN weather_codes code2 ON weather.weather_code = code2.weather_code_id
-              WHERE city_id = :cid';
+    FROM weather
+    INNER JOIN weather_codes code2 ON weather.weather_code = code2.weather_code_id
+    WHERE city_id = :cid';
 
     $param = array(
         'cid' => $cityid
-    );
+        );
     $data = retrieve_data($conn, $query, $param);
     if(count($data) === 0){
         return array();
@@ -355,12 +373,12 @@ function get_weather_data($cityid, &$conn)
 function get_forecast($city_id, &$conn)
 {
     $query = 'SELECT date_offset, temp_high, temp_low, description
-              FROM forecast
-              INNER JOIN weather_codes code2 ON forecast.weather_code = code2.weather_code_id
-              WHERE city_id = :cid';
+    FROM forecast
+    INNER JOIN weather_codes code2 ON forecast.weather_code = code2.weather_code_id
+    WHERE city_id = :cid';
     $param = array(
         'cid' => $city_id
-    );
+        );
     $data = retrieve_data($conn, $query, $param);
     return $data;
 }
@@ -431,21 +449,22 @@ function get_cities(&$conn)
 function get_city_data($city_id, &$conn)
 {
     $query = 'SELECT
-  city_name,
-  geocode_latitude,
-  geocode_longitude,
-  woeid,
-  county_state,
-  population,
-  area,
-  currency,
-  primary_language,
-  wiki_link
-FROM city
-WHERE city_id = :cid';
+    city_name,
+    geocode_latitude,
+    geocode_longitude,
+    woeid,
+    county_state,
+    country,
+    population,
+    area,
+    currency,
+    primary_language,
+    wiki_link
+    FROM city
+    WHERE city_id = :cid';
     $param = array(
         'cid' => $city_id
-    );
+        );
     return retrieve_data($conn, $query, $param);
 }
 
@@ -461,7 +480,7 @@ function insert_category($name, &$conn)
     $query = 'INSERT INTO `venue_category`(`category_name`) VALUES (:name)';
     $param = array(
         'name' => $name
-    );
+        );
     return insert_to($conn, $query, $param);
 }
 
@@ -486,7 +505,7 @@ function insert_poi($cid, $name, $latitude, $longitude, $website, $rating, &$con
         'lon' => $longitude,
         'site' => $website,
         'rating' => $rating
-    );
+        );
     return insert_to($conn, $query, $param);
 }
 
@@ -588,15 +607,15 @@ function add_places_of_interest($cid, $lat, $lon, &$conn)
 function get_poi_by_id($cid, &$conn)
 {
     $query = 'SELECT
-  local_attractions.attraction_name,
-  local_attractions.geocode_latitude,
-  local_attractions.geocode_longitude,
-  local_attractions.website,
-  local_attractions.rating
-FROM local_attractions
-WHERE local_attractions.city = :cid;';
+    local_attractions.attraction_name,
+    local_attractions.geocode_latitude,
+    local_attractions.geocode_longitude,
+    local_attractions.website,
+    local_attractions.rating
+    FROM local_attractions
+    WHERE local_attractions.city = :cid;';
     $param = array(
         'cid' => $cid
-    );
+        );
     return retrieve_data($conn, $query, $param);
 }
