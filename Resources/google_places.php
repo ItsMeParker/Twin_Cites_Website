@@ -9,7 +9,7 @@
 include_once (__DIR__ . '/config.php');
 
 /**
- * A simple pretetermined function to test whether the google api is
+ * A simple predetermined function to test whether the google api is
  * functioning correctly.
  *
  * Executes a call to the google places nearby search api using the API key
@@ -64,6 +64,13 @@ function get_poi_json($latitude, $longitude, $radius)
     return $json_text;
 }
 
+/**
+ * Formats a string so that a google search may be executed with its contents
+ * This function should not fail however care must be taken if changing the field sizes in the databases
+ *
+ * @param $search string
+ * @return string
+ */
 function create_search_address($search)
 {
     $search = urlencode($search);
