@@ -14,11 +14,11 @@ function loadDetailsOf(city)
 {
     myMap(city);
 
-    weather(city)
+    weather(city);
 
-    cityInfo(city)
+    cityInfo(city);
 
-    locationInfo(city)
+    locationInfo(city);
 
 }
 
@@ -41,7 +41,7 @@ function myMap(city)
         };
 
     }
-    else if (city == 0)
+    else if (city == 2)
     {
 
        var  mapOptions = 
@@ -111,7 +111,7 @@ function myMap(city)
         flightPath.setMap(map);
 
     }
-    else if (city == 0)
+    else if (city == 2)
     {                                  //48.5696602,7.7447545
         var  s0 = new google.maps.LatLng(48.6337699,7.8359951); 
         var  s1 = new google.maps.LatLng(48.6331977,7.8357830); 
@@ -236,7 +236,7 @@ function weather(city)
 
     var todayVertical = document.getElementById("todaysWeatherVertical");
     var todayHorizontal = document.getElementById("todaysWeatherHorizontal");
-    var forcast = document.getElementById("weatherForecast");
+    var forecast = document.getElementById("weatherForecast");
 
     $.ajax({
 
@@ -248,7 +248,7 @@ function weather(city)
         {
             todayVertical.innerHTML = "weather fetching failed";
             todayHorizontal.innerHTML = "weather fetching failed";
-            forcast.innerHTML = "weather fetching failed";
+            forecast.innerHTML = "weather fetching failed";
         },
     
         success: function(data)
@@ -256,19 +256,39 @@ function weather(city)
             // debugging 
             console.log(data);
 
-            todayVertical.innerHTML = "not weather fetching failed";
-            todayHorizontal.innerHTML = "not weather fetching failed";
+            todayVertical.innerHTML += "<div class=\"well\" style=\"padding:10px;\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
 
-            for (i = 0; i < data.forcast.length; i++) 
+            todayHorizontal.innerHTML += "<div class=\"well\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
+
+            var weatherOutput = "<h3> Forecast </h3> <br/>"
+
+            for (var i = 0; i < 10; i++) 
             { 
-                for (j = 0; j < data.forcast.i.length; j++) 
+
+                weatherOutput += "<div class=\"well\" style=\"width:49%; margin:1px; display: inline-block;\">"; 
+
+                if (i == 0)
                 {
-                    forcast.innerHTML += data.forcast.i.j;
-                    forcast.innerHTML += "<br>";
+                    weatherOutput += "<h4> Today </h4> <br/>"
                 }
-                forcast.innerHTML += "<p> end of one day </p>";
+                else if (i == 1)
+                {
+                    weatherOutput += "<h4> Tomorrow </h4> <br/>"
+                }
+                else
+                {
+                    weatherOutput += "<h4> Day" + String(i) +"</h4> <br/>"
+                }
+    
+                weatherOutput += "Temp High: " + data.forecast[i].temp_high + "<br/>"; 
+                weatherOutput += "Temp Low: " + data.forecast[i].temp_low + "<br/>"; 
+                weatherOutput += "Description: " + data.forecast[i].description + "<br/>"; 
+
+                weatherOutput += "</div>"
+
             }
-            
+
+            forecast.innerHTML = weatherOutput;
         },
         type: 'GET'
 
@@ -290,7 +310,7 @@ function locationInfo(location)
     var content = ""
 
     // default output before any location has been chosen
-    if ((location == 1) || (location == 0))
+    if ((location == 1) || (location == 2))
     {
 
         content = ` <h1> Looks like you haven't chosen a location on the map yet! </h1>
