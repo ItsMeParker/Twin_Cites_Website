@@ -7,6 +7,7 @@
  */
 include_once(__DIR__ . '/config.php');
 include_once(__DIR__ . '/yahoo_weather.php');
+include_once(__DIR__ . '/google_places.php');
 
 /**
  * creates a connection object to a sql5 database and returns the connection object
@@ -134,6 +135,8 @@ function create_city($woeid, $county, $wikilink, $population, $currency, $area, 
     try
     {
         $city_id = insert_to($conn, $query, $params);
+        add_places_of_interest($city_id, $location->item->lat, $location->item->long,$conn);
+        update_weather($city_id, $conn);
         return $city_id;
     }catch(Exception $ex)
     {
@@ -419,6 +422,12 @@ function get_cities(&$conn)
     return $result;
 }
 
+/**
+ * @param $city_id string
+ * @param $conn PDO
+ * @throws PDOException when query fails to execute due to improperly set up database
+ * @return array
+ */
 function get_city_data($city_id, &$conn)
 {
     $query = 'SELECT
@@ -436,6 +445,158 @@ FROM city
 WHERE city_id = :cid';
     $param = array(
         'cid' => $city_id
+    );
+    return retrieve_data($conn, $query, $param);
+}
+
+/**
+ * @param $name string
+ * @param $conn PDO
+ * @throws PDOException on failing to execute query
+ * @return int
+ */
+function insert_category($name, &$conn)
+{
+
+    $query = 'INSERT INTO `venue_category`(`category_name`) VALUES (:name)';
+    $param = array(
+        'name' => $name
+    );
+    return insert_to($conn, $query, $param);
+}
+
+/**
+ * @param $cid string
+ * @param $name string
+ * @param $latitude string
+ * @param $longitude string
+ * @param $website string
+ * @param $rating string
+ * @param $conn PDO
+ * @throws PDOException on failing to execute query
+ * @return int
+ */
+function insert_poi($cid, $name, $latitude, $longitude, $website, $rating, &$conn)
+{
+    $query = 'INSERT INTO `local_attractions`(`city`, `attraction_name`, `geocode_latitude`, `geocode_longitude`, `website`, `rating`) VALUES (:cid, :a_name, :lat, :lon, :site, :rating)';
+    $param = array(
+        'cid' => $cid,
+        'a_name' => $name,
+        'lat' => $latitude,
+        'lon' => $longitude,
+        'site' => $website,
+        'rating' => $rating
+    );
+    return insert_to($conn, $query, $param);
+}
+
+/**
+ * @param $location_id string
+ * @param $tag_ids array should contain integers of tag ids as strings
+ * @param $conn PDO
+ * @throws PDOException on failing to execute query
+ * @return int
+ */
+function insert_poi_tags($location_id, $tag_ids, &$conn)
+{
+    //$query = 'INSERT INTO `attraction_categories`(`venue_category`, `local_attraction`) VALUES (:vc, :la)';
+    $query = 'INSERT INTO `attraction_categories`(`venue_category`, `local_attraction`) VALUES';
+    $param = array();
+
+    for ($i = 0; $i < count($tag_ids); $i++)
+    {
+        $query .= sprintf(' (:vc%d, %s),', $i, $location_id);
+        $param['vc' . $i] = $tag_ids[$i];
+    }
+    $query = rtrim($query, ',');
+    return insert_to($conn, $query, $param);
+}
+
+/**
+ * @param $conn PDO
+ * @return array
+ */
+function retrieve_poi_tags(&$conn)
+{
+    $query = 'SELECT `venue_category_id`, `category_name` FROM `venue_category` WHERE 1';
+    $param = array();
+    return retrieve_data($conn, $query, $param);
+}
+
+/**
+ * @param $cid string
+ * @param $location stdClass
+ * @param $conn PDO
+ * @return int
+ */
+function add_place_of_interest($cid, $location, &$conn)
+{
+    $tags_unparsed = retrieve_poi_tags($conn);
+    $tags_parsed = array();
+
+    $poi_id = insert_poi($cid, $location->name, $location->geometry->location->lat, $location->geometry->location->lng, create_search_address($location->name), (isset($location->rating)? $location->rating: '-1' ),$conn);
+
+    foreach ($tags_unparsed as $tag)
+    {
+        $tags_parsed[$tag['category_name']] = $tag['venue_category_id'];
+    }
+
+    // create list of tag ids to append for this location
+    $tags = array();
+    foreach ($location->types as $location_tag)
+    {
+        if(isset($tags_parsed[$location_tag]))
+        {
+            // tag exists append id
+            array_push($tags, $tags_parsed[$location_tag]);
+        }
+        else
+        {
+            //new tag so needs adding
+            $new_tag_id = insert_category($location_tag, $conn);
+            $tags_parsed[$location_tag] = $new_tag_id;
+            array_push($tags, $tags_parsed[$location_tag]);
+        }
+    }
+    insert_poi_tags($poi_id, $tags, $conn);
+
+    return $poi_id;
+}
+
+/**
+ * @param $cid string
+ * @param $lat string
+ * @param $lon string
+ * @param $conn PDO
+ * @throws Exception on failing to connect to google api to retrieve poi
+ * @throws PDOException on database query failing to execute due to incorrect data
+ */
+function add_places_of_interest($cid, $lat, $lon, &$conn)
+{
+    $data = json_decode(get_poi_json($lat, $lon, '500'))->results;
+    foreach ($data as $location)
+    {
+        add_place_of_interest($cid, $location, $conn);
+    }
+}
+
+/**
+ * @param $cid string
+ * @param $conn PDO
+ * @return array
+ */
+function get_poi_by_id($cid, &$conn)
+{
+    $query = 'SELECT
+  local_attractions.attraction_name,
+  local_attractions.geocode_latitude,
+  local_attractions.geocode_longitude,
+  local_attractions.website,
+  local_attractions.rating
+FROM local_attractions
+WHERE local_attractions.city = :cid;';
+    $param = array(
+        'cid' => $cid
     );
     return retrieve_data($conn, $query, $param);
 }
