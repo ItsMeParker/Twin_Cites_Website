@@ -82,7 +82,7 @@ function retrieve_data(&$conn, $query, $param)
 {
     $prep_stmt = $conn->prepare($query);
     $prep_stmt->execute($param);
-    $result = $prep_stmt->fetchAll();
+    $result = $prep_stmt->fetchAll(PDO::FETCH_ASSOC);
     $prep_stmt = null;
     return $result;
 }
