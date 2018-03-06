@@ -1,0 +1,1678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 3.4.11.1deb2+deb7u8
+- http://www.phpmyadmin.net
+-
+- Host: mysql5
+- Generation Time: Mar 06, 2018 at 06:24 PM
+- Server version: 5.5.59
+- PHP Version: 5.4.45-0+deb7u12
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="fet15021296" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="attraction_categories">
+                CREATE TABLE `attraction_categories` (
+                  `venue_category` int(11) NOT NULL,
+                  `local_attraction` int(11) NOT NULL,
+                  PRIMARY KEY (`venue_category`,`local_attraction`),
+                  KEY `fk_attraction_categories_Venue_category1_idx` (`venue_category`),
+                  KEY `fk_attraction_categories_local_attractions1_idx` (`local_attraction`),
+                  CONSTRAINT `fk_attraction_categories_Venue_category1` FOREIGN KEY (`venue_category`) REFERENCES `venue_category` (`venue_category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                  CONSTRAINT `fk_attraction_categories_local_attractions1` FOREIGN KEY (`local_attraction`) REFERENCES `local_attractions` (`local_attractions_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="city">
+                CREATE TABLE `city` (
+                  `city_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `city_name` varchar(120) NOT NULL,
+                  `geocode_latitude` decimal(9,6) NOT NULL,
+                  `geocode_longitude` decimal(9,6) NOT NULL,
+                  `country` int(11) NOT NULL,
+                  `woeid` int(11) NOT NULL,
+                  `county_state` varchar(20) NOT NULL,
+                  `population` int(11) NOT NULL,
+                  `area` int(11) NOT NULL,
+                  `currency` varchar(10) NOT NULL,
+                  `primary_language` varchar(15) NOT NULL,
+                  `wiki_link` varchar(120) NOT NULL,
+                  PRIMARY KEY (`city_id`),
+                  KEY `fk_City_Country_idx` (`country`),
+                  CONSTRAINT `fk_City_Country` FOREIGN KEY (`country`) REFERENCES `country` (`country_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="country">
+                CREATE TABLE `country` (
+                  `country_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `country_name` varchar(45) NOT NULL,
+                  `population` int(11) NOT NULL,
+                  `national_language` varchar(20) NOT NULL,
+                  `gdp` int(11) NOT NULL,
+                  `wiki_link` varchar(120) NOT NULL,
+                  PRIMARY KEY (`country_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="forecast">
+                CREATE TABLE `forecast` (
+                  `date_offset` int(11) NOT NULL,
+                  `weather_code` int(11) NOT NULL,
+                  `temp_high` int(11) NOT NULL,
+                  `temp_low` int(11) NOT NULL,
+                  `city_id` int(11) NOT NULL,
+                  PRIMARY KEY (`date_offset`,`city_id`),
+                  KEY `fk_forecast_weather_codes1_idx` (`weather_code`),
+                  KEY `fk_forecast_City1_idx` (`city_id`),
+                  CONSTRAINT `fk_forecast_weather_codes1` FOREIGN KEY (`weather_code`) REFERENCES `weather_codes` (`weather_code_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                  CONSTRAINT `fk_forecast_City1` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="local_attractions">
+                CREATE TABLE `local_attractions` (
+                  `local_attractions_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `city` int(11) NOT NULL,
+                  `attraction_name` varchar(45) NOT NULL,
+                  `geocode_latitude` decimal(9,6) NOT NULL,
+                  `geocode_longitude` decimal(9,6) NOT NULL,
+                  `website` varchar(100) NOT NULL,
+                  `rating` decimal(2,1) NOT NULL,
+                  PRIMARY KEY (`local_attractions_id`),
+                  KEY `fk_local_attractions_City1_idx` (`city`),
+                  CONSTRAINT `fk_local_attractions_City1` FOREIGN KEY (`city`) REFERENCES `city` (`city_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="venue_category">
+                CREATE TABLE `venue_category` (
+                  `venue_category_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `category_name` varchar(45) NOT NULL,
+                  PRIMARY KEY (`venue_category_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="weather">
+                CREATE TABLE `weather` (
+                  `city_id` int(11) NOT NULL,
+                  `last_checked` datetime NOT NULL,
+                  `published_at` datetime NOT NULL,
+                  `current_temp` int(11) NOT NULL,
+                  `weather_code` int(11) NOT NULL,
+                  PRIMARY KEY (`city_id`),
+                  KEY `fk_Weather_City1_idx` (`city_id`),
+                  KEY `fk_Weather_weather_codes1_idx` (`weather_code`),
+                  CONSTRAINT `fk_Weather_City1` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                  CONSTRAINT `fk_Weather_weather_codes1` FOREIGN KEY (`weather_code`) REFERENCES `weather_codes` (`weather_code_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="weather_codes">
+                CREATE TABLE `weather_codes` (
+                  `weather_code_id` int(11) NOT NULL,
+                  `description` varchar(25) NOT NULL,
+                  PRIMARY KEY (`weather_code_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'fet15021296'
+    -->
+    <database name="fet15021296">
+        <!-- Table attraction_categories -->
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">101</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">102</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">103</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">104</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">105</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">106</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">107</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">108</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">109</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">110</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">111</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">112</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">113</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">114</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">115</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">116</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">117</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">118</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">119</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">120</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">121</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">122</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">123</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">124</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">125</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">126</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">127</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">128</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">129</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">130</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">131</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">132</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">133</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">134</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">135</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">136</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">137</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">138</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">139</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">1</column>
+            <column name="local_attraction">140</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">2</column>
+            <column name="local_attraction">101</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">2</column>
+            <column name="local_attraction">102</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">2</column>
+            <column name="local_attraction">110</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">2</column>
+            <column name="local_attraction">121</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">2</column>
+            <column name="local_attraction">128</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">2</column>
+            <column name="local_attraction">140</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">3</column>
+            <column name="local_attraction">102</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">3</column>
+            <column name="local_attraction">105</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">3</column>
+            <column name="local_attraction">107</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">3</column>
+            <column name="local_attraction">132</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">3</column>
+            <column name="local_attraction">137</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">102</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">105</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">107</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">122</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">129</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">132</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">135</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">4</column>
+            <column name="local_attraction">137</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">101</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">102</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">103</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">104</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">105</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">106</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">107</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">108</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">109</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">110</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">111</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">112</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">113</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">114</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">115</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">116</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">117</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">118</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">119</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">120</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">121</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">122</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">123</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">124</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">125</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">126</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">127</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">128</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">129</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">130</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">131</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">132</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">133</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">134</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">135</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">136</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">137</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">138</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">139</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">5</column>
+            <column name="local_attraction">140</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">8</column>
+            <column name="local_attraction">117</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">9</column>
+            <column name="local_attraction">117</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">104</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">106</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">109</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">112</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">114</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">116</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">117</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">119</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">120</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">122</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">125</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">127</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">129</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">131</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">133</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">134</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">10</column>
+            <column name="local_attraction">135</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">11</column>
+            <column name="local_attraction">136</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">14</column>
+            <column name="local_attraction">109</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">14</column>
+            <column name="local_attraction">112</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">14</column>
+            <column name="local_attraction">114</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">14</column>
+            <column name="local_attraction">116</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">14</column>
+            <column name="local_attraction">133</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">15</column>
+            <column name="local_attraction">104</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">15</column>
+            <column name="local_attraction">106</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">15</column>
+            <column name="local_attraction">109</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">15</column>
+            <column name="local_attraction">134</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">17</column>
+            <column name="local_attraction">109</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">20</column>
+            <column name="local_attraction">103</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">20</column>
+            <column name="local_attraction">126</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">20</column>
+            <column name="local_attraction">130</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">21</column>
+            <column name="local_attraction">103</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">21</column>
+            <column name="local_attraction">115</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">21</column>
+            <column name="local_attraction">126</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">21</column>
+            <column name="local_attraction">130</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">22</column>
+            <column name="local_attraction">103</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">22</column>
+            <column name="local_attraction">115</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">22</column>
+            <column name="local_attraction">118</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">22</column>
+            <column name="local_attraction">126</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">22</column>
+            <column name="local_attraction">130</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">23</column>
+            <column name="local_attraction">105</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">24</column>
+            <column name="local_attraction">113</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">25</column>
+            <column name="local_attraction">113</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">25</column>
+            <column name="local_attraction">119</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">25</column>
+            <column name="local_attraction">123</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">25</column>
+            <column name="local_attraction">124</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">25</column>
+            <column name="local_attraction">127</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">25</column>
+            <column name="local_attraction">131</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">26</column>
+            <column name="local_attraction">118</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">27</column>
+            <column name="local_attraction">120</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">28</column>
+            <column name="local_attraction">121</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">29</column>
+            <column name="local_attraction">122</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">29</column>
+            <column name="local_attraction">129</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">29</column>
+            <column name="local_attraction">135</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">30</column>
+            <column name="local_attraction">122</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">30</column>
+            <column name="local_attraction">129</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">30</column>
+            <column name="local_attraction">135</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">31</column>
+            <column name="local_attraction">123</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">32</column>
+            <column name="local_attraction">124</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">33</column>
+            <column name="local_attraction">125</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">34</column>
+            <column name="local_attraction">131</column>
+        </table>
+        <table name="attraction_categories">
+            <column name="venue_category">35</column>
+            <column name="local_attraction">138</column>
+        </table>
+        <!-- Table city -->
+        <table name="city">
+            <column name="city_id">1</column>
+            <column name="city_name">Leicester</column>
+            <column name="geocode_latitude">52.636959</column>
+            <column name="geocode_longitude">-1.129040</column>
+            <column name="country">1</column>
+            <column name="woeid">26062</column>
+            <column name="county_state">Leicestershire</column>
+            <column name="population">329839</column>
+            <column name="area">28</column>
+            <column name="currency">Pounds</column>
+            <column name="primary_language">English</column>
+            <column name="wiki_link">https://en.wikipedia.org/wiki/Leicester</column>
+        </table>
+        <table name="city">
+            <column name="city_id">2</column>
+            <column name="city_name">Strasbourg</column>
+            <column name="geocode_latitude">48.570930</column>
+            <column name="geocode_longitude">7.757880</column>
+            <column name="country">2</column>
+            <column name="woeid">627791</column>
+            <column name="county_state">Bas-Rhin</column>
+            <column name="population">276170</column>
+            <column name="area">78</column>
+            <column name="currency">Euro</column>
+            <column name="primary_language">French</column>
+            <column name="wiki_link">https://en.wikipedia.org/wiki/Strasbourg</column>
+        </table>
+        <!-- Table country -->
+        <table name="country">
+            <column name="country_id">1</column>
+            <column name="country_name">United Kingdom</column>
+            <column name="population">65640000</column>
+            <column name="national_language">English</column>
+            <column name="gdp">2147483647</column>
+            <column name="wiki_link">www.wikipedia.com/UnitedKingdom</column>
+        </table>
+        <table name="country">
+            <column name="country_id">2</column>
+            <column name="country_name">Franch</column>
+            <column name="population">67201000</column>
+            <column name="national_language">French</column>
+            <column name="gdp">2147483647</column>
+            <column name="wiki_link">https://en.wikipedia.org/wiki/France</column>
+        </table>
+        <!-- Table forecast -->
+        <table name="forecast">
+            <column name="date_offset">0</column>
+            <column name="weather_code">12</column>
+            <column name="temp_high">46</column>
+            <column name="temp_low">37</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">0</column>
+            <column name="weather_code">39</column>
+            <column name="temp_high">51</column>
+            <column name="temp_low">34</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">1</column>
+            <column name="weather_code">28</column>
+            <column name="temp_high">47</column>
+            <column name="temp_low">34</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">1</column>
+            <column name="weather_code">39</column>
+            <column name="temp_high">49</column>
+            <column name="temp_low">41</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">2</column>
+            <column name="weather_code">30</column>
+            <column name="temp_high">45</column>
+            <column name="temp_low">35</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">2</column>
+            <column name="weather_code">28</column>
+            <column name="temp_high">51</column>
+            <column name="temp_low">38</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">3</column>
+            <column name="weather_code">39</column>
+            <column name="temp_high">46</column>
+            <column name="temp_low">33</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">3</column>
+            <column name="weather_code">12</column>
+            <column name="temp_high">54</column>
+            <column name="temp_low">44</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">4</column>
+            <column name="weather_code">12</column>
+            <column name="temp_high">47</column>
+            <column name="temp_low">40</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">4</column>
+            <column name="weather_code">39</column>
+            <column name="temp_high">56</column>
+            <column name="temp_low">49</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">5</column>
+            <column name="weather_code">26</column>
+            <column name="temp_high">49</column>
+            <column name="temp_low">41</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">5</column>
+            <column name="weather_code">39</column>
+            <column name="temp_high">56</column>
+            <column name="temp_low">45</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">6</column>
+            <column name="weather_code">39</column>
+            <column name="temp_high">46</column>
+            <column name="temp_low">40</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">6</column>
+            <column name="weather_code">39</column>
+            <column name="temp_high">54</column>
+            <column name="temp_low">46</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">7</column>
+            <column name="weather_code">23</column>
+            <column name="temp_high">46</column>
+            <column name="temp_low">38</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">7</column>
+            <column name="weather_code">12</column>
+            <column name="temp_high">50</column>
+            <column name="temp_low">42</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">8</column>
+            <column name="weather_code">28</column>
+            <column name="temp_high">45</column>
+            <column name="temp_low">37</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">8</column>
+            <column name="weather_code">12</column>
+            <column name="temp_high">54</column>
+            <column name="temp_low">43</column>
+            <column name="city_id">2</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">9</column>
+            <column name="weather_code">23</column>
+            <column name="temp_high">44</column>
+            <column name="temp_low">39</column>
+            <column name="city_id">1</column>
+        </table>
+        <table name="forecast">
+            <column name="date_offset">9</column>
+            <column name="weather_code">23</column>
+            <column name="temp_high">55</column>
+            <column name="temp_low">45</column>
+            <column name="city_id">2</column>
+        </table>
+        <!-- Table local_attractions -->
+        <table name="local_attractions">
+            <column name="local_attractions_id">101</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Ramada Encore Leicester City Centre</column>
+            <column name="geocode_latitude">52.634667</column>
+            <column name="geocode_longitude">-1.129265</column>
+            <column name="website">https://www.google.co.uk/search?q=Ramada+Encore+Leicester+City+Centre</column>
+            <column name="rating">4.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">102</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Mercure Leicester The Grand Hotel</column>
+            <column name="geocode_latitude">52.633197</column>
+            <column name="geocode_longitude">-1.129889</column>
+            <column name="website">https://www.google.co.uk/search?q=Mercure+Leicester+The+Grand+Hotel</column>
+            <column name="rating">3.9</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">103</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Nationwide</column>
+            <column name="geocode_latitude">52.634217</column>
+            <column name="geocode_longitude">-1.132492</column>
+            <column name="website">https://www.google.co.uk/search?q=Nationwide</column>
+            <column name="rating">2.4</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">104</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Clarks</column>
+            <column name="geocode_latitude">52.636213</column>
+            <column name="geocode_longitude">-1.132669</column>
+            <column name="website">https://www.google.co.uk/search?q=Clarks</column>
+            <column name="rating">4.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">105</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Cafe Roma</column>
+            <column name="geocode_latitude">52.634561</column>
+            <column name="geocode_longitude">-1.130582</column>
+            <column name="website">https://www.google.co.uk/search?q=Cafe+Roma</column>
+            <column name="rating">4.6</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">106</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Shoe Zone</column>
+            <column name="geocode_latitude">52.634842</column>
+            <column name="geocode_longitude">-1.133879</column>
+            <column name="website">https://www.google.co.uk/search?q=Shoe+Zone</column>
+            <column name="rating">3.5</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">107</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Subway</column>
+            <column name="geocode_latitude">52.636273</column>
+            <column name="geocode_longitude">-1.129227</column>
+            <column name="website">https://www.google.co.uk/search?q=Subway</column>
+            <column name="rating">3.3</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">108</column>
+            <column name="city">1</column>
+            <column name="attraction_name">The City Rooms</column>
+            <column name="geocode_latitude">52.633750</column>
+            <column name="geocode_longitude">-1.134150</column>
+            <column name="website">https://www.google.co.uk/search?q=The+City+Rooms</column>
+            <column name="rating">4.4</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">109</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Sports Direct</column>
+            <column name="geocode_latitude">52.636211</column>
+            <column name="geocode_longitude">-1.132487</column>
+            <column name="website">https://www.google.co.uk/search?q=Sports+Direct</column>
+            <column name="rating">4.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">110</column>
+            <column name="city">1</column>
+            <column name="attraction_name">The Hyde Apartments</column>
+            <column name="geocode_latitude">52.635125</column>
+            <column name="geocode_longitude">-1.126161</column>
+            <column name="website">https://www.google.co.uk/search?q=The+Hyde+Apartments</column>
+            <column name="rating">5.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">111</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Pearson Professional Centres - UK Leicester</column>
+            <column name="geocode_latitude">52.635459</column>
+            <column name="geocode_longitude">-1.128278</column>
+            <column name="website">https://www.google.co.uk/search?q=Pearson+Professional+Centres+-+UK+Leicester</column>
+            <column name="rating">3.1</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">112</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Primark</column>
+            <column name="geocode_latitude">52.636642</column>
+            <column name="geocode_longitude">-1.130773</column>
+            <column name="website">https://www.google.co.uk/search?q=Primark</column>
+            <column name="rating">3.9</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">113</column>
+            <column name="city">1</column>
+            <column name="attraction_name">The Dental Suite</column>
+            <column name="geocode_latitude">52.633603</column>
+            <column name="geocode_longitude">-1.129743</column>
+            <column name="website">https://www.google.co.uk/search?q=The+Dental+Suite</column>
+            <column name="rating">4.2</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">114</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Ann Summers</column>
+            <column name="geocode_latitude">52.636400</column>
+            <column name="geocode_longitude">-1.131804</column>
+            <column name="website">https://www.google.co.uk/search?q=Ann+Summers</column>
+            <column name="rating">3.3</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">115</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Coventry Building Society Leicester</column>
+            <column name="geocode_latitude">52.635979</column>
+            <column name="geocode_longitude">-1.132296</column>
+            <column name="website">https://www.google.co.uk/search?q=Coventry+Building+Society+Leicester</column>
+            <column name="rating">-1.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">116</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Dorothy Perkins</column>
+            <column name="geocode_latitude">52.635654</column>
+            <column name="geocode_longitude">-1.132394</column>
+            <column name="website">https://www.google.co.uk/search?q=Dorothy+Perkins</column>
+            <column name="rating">4.2</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">117</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Music Junkie</column>
+            <column name="geocode_latitude">52.637906</column>
+            <column name="geocode_longitude">-1.128230</column>
+            <column name="website">https://www.google.co.uk/search?q=Music+Junkie</column>
+            <column name="rating">4.7</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">118</column>
+            <column name="city">1</column>
+            <column name="attraction_name">William H Brown Estate Agents in Leicester</column>
+            <column name="geocode_latitude">52.634688</column>
+            <column name="geocode_longitude">-1.130629</column>
+            <column name="website">https://www.google.co.uk/search?q=William+H+Brown+Estate+Agents+in+Leicester</column>
+            <column name="rating">2.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">119</column>
+            <column name="city">1</column>
+            <column name="attraction_name">Boots Opticians</column>
+            <column name="geocode_latitude">52.635103</column>
+            <column name="geocode_longitude">-1.131820</column>
+            <column name="website">https://www.google.co.uk/search?q=Boots+Opticians</column>
+            <column name="rating">4.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">120</column>
+            <column name="city">1</column>
+            <column name="attraction_name">The Works</column>
+            <column name="geocode_latitude">52.634790</column>
+            <column name="geocode_longitude">-1.131712</column>
+            <column name="website">https://www.google.co.uk/search?q=The+Works</column>
+            <column name="rating">4.1</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">121</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Le Gîte de la Presqu'île Appart'Hôtel by Amit</column>
+            <column name="geocode_latitude">48.574261</column>
+            <column name="geocode_longitude">7.761884</column>
+            <column name="website">https://www.google.co.uk/search?q=Le+G%C3%AEte+de+la+Presqu%27%C3%AEle+Appart%27H%C3%B4tel+by+Amitel</column>
+            <column name="rating">4.7</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">122</column>
+            <column name="city">2</column>
+            <column name="attraction_name">MONOPRIX</column>
+            <column name="geocode_latitude">48.568062</column>
+            <column name="geocode_longitude">7.758423</column>
+            <column name="website">https://www.google.co.uk/search?q=MONOPRIX</column>
+            <column name="rating">3.7</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">123</column>
+            <column name="city">2</column>
+            <column name="attraction_name">MAIF Strasbourg Etoile</column>
+            <column name="geocode_latitude">48.570592</column>
+            <column name="geocode_longitude">7.756224</column>
+            <column name="website">https://www.google.co.uk/search?q=MAIF+Strasbourg+Etoile</column>
+            <column name="rating">4.3</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">124</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Panza Gymnothèque</column>
+            <column name="geocode_latitude">48.570108</column>
+            <column name="geocode_longitude">7.758611</column>
+            <column name="website">https://www.google.co.uk/search?q=Panza+Gymnoth%C3%A8que</column>
+            <column name="rating">3.9</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">125</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Institut de beauté Body'Minute</column>
+            <column name="geocode_latitude">48.573817</column>
+            <column name="geocode_longitude">7.756800</column>
+            <column name="website">https://www.google.co.uk/search?q=Institut+de+beaut%C3%A9+Body%27Minute</column>
+            <column name="rating">1.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">126</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Société Générale</column>
+            <column name="geocode_latitude">48.568443</column>
+            <column name="geocode_longitude">7.757163</column>
+            <column name="website">https://www.google.co.uk/search?q=Soci%C3%A9t%C3%A9+G%C3%A9n%C3%A9rale</column>
+            <column name="rating">-1.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">127</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Opticien GrandOptical Strasbourg Rivetoile</column>
+            <column name="geocode_latitude">48.573826</column>
+            <column name="geocode_longitude">7.756703</column>
+            <column name="website">https://www.google.co.uk/search?q=Opticien+GrandOptical+Strasbourg+Rivetoile</column>
+            <column name="rating">2.1</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">128</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Studio Avec Terrace Au Doc</column>
+            <column name="geocode_latitude">48.573688</column>
+            <column name="geocode_longitude">7.759152</column>
+            <column name="website">https://www.google.co.uk/search?q=Studio+Avec+Terrace+Au+Doc</column>
+            <column name="rating">-1.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">129</column>
+            <column name="city">2</column>
+            <column name="attraction_name">E.Leclerc Strasbourg</column>
+            <column name="geocode_latitude">48.572643</column>
+            <column name="geocode_longitude">7.760410</column>
+            <column name="website">https://www.google.co.uk/search?q=E.Leclerc+Strasbourg</column>
+            <column name="rating">3.5</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">130</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Crédit Mutuel</column>
+            <column name="geocode_latitude">48.568556</column>
+            <column name="geocode_longitude">7.752986</column>
+            <column name="website">https://www.google.co.uk/search?q=Cr%C3%A9dit+Mutuel</column>
+            <column name="rating">2.0</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">131</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Pharmacie Rivetoile</column>
+            <column name="geocode_latitude">48.573594</column>
+            <column name="geocode_longitude">7.757364</column>
+            <column name="website">https://www.google.co.uk/search?q=Pharmacie+Rivetoile</column>
+            <column name="rating">3.4</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">132</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Beirut Restaurant</column>
+            <column name="geocode_latitude">48.569516</column>
+            <column name="geocode_longitude">7.756920</column>
+            <column name="website">https://www.google.co.uk/search?q=Beirut+Restaurant</column>
+            <column name="rating">4.4</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">133</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Mango</column>
+            <column name="geocode_latitude">48.573445</column>
+            <column name="geocode_longitude">7.757810</column>
+            <column name="website">https://www.google.co.uk/search?q=Mango</column>
+            <column name="rating">3.7</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">134</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Sagone</column>
+            <column name="geocode_latitude">48.567077</column>
+            <column name="geocode_longitude">7.758031</column>
+            <column name="website">https://www.google.co.uk/search?q=Sagone</column>
+            <column name="rating">3.2</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">135</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Carrefour City</column>
+            <column name="geocode_latitude">48.568734</column>
+            <column name="geocode_longitude">7.752684</column>
+            <column name="website">https://www.google.co.uk/search?q=Carrefour+City</column>
+            <column name="rating">3.8</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">136</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Rivetoile Shopping Mall</column>
+            <column name="geocode_latitude">48.573721</column>
+            <column name="geocode_longitude">7.756916</column>
+            <column name="website">https://www.google.co.uk/search?q=Rivetoile+Shopping+Mall</column>
+            <column name="rating">4.1</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">137</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Le Resto Du Coin</column>
+            <column name="geocode_latitude">48.568396</column>
+            <column name="geocode_longitude">7.754807</column>
+            <column name="website">https://www.google.co.uk/search?q=Le+Resto+Du+Coin</column>
+            <column name="rating">4.2</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">138</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Municipal Cemetery Saint-Urbain</column>
+            <column name="geocode_latitude">48.572035</column>
+            <column name="geocode_longitude">7.758043</column>
+            <column name="website">https://www.google.co.uk/search?q=Municipal+Cemetery+Saint-Urbain</column>
+            <column name="rating">3.5</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">139</column>
+            <column name="city">2</column>
+            <column name="attraction_name">La Plage</column>
+            <column name="geocode_latitude">48.573123</column>
+            <column name="geocode_longitude">7.760227</column>
+            <column name="website">https://www.google.co.uk/search?q=La+Plage</column>
+            <column name="rating">4.5</column>
+        </table>
+        <table name="local_attractions">
+            <column name="local_attractions_id">140</column>
+            <column name="city">2</column>
+            <column name="attraction_name">Très grande chambre vue Cathédrale - Place de</column>
+            <column name="geocode_latitude">48.571119</column>
+            <column name="geocode_longitude">7.756428</column>
+            <column name="website">https://www.google.co.uk/search?q=Tr%C3%A8s+grande+chambre+vue+Cath%C3%A9drale+-+Place+de+l%27Etoile</column>
+            <column name="rating">-1.0</column>
+        </table>
+        <!-- Table venue_category -->
+        <table name="venue_category">
+            <column name="venue_category_id">1</column>
+            <column name="category_name">point_of_interest</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">2</column>
+            <column name="category_name">lodging</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">3</column>
+            <column name="category_name">restaurant</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">4</column>
+            <column name="category_name">food</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">5</column>
+            <column name="category_name">establishment</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">6</column>
+            <column name="category_name">travel_agency</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">7</column>
+            <column name="category_name">movie_theater</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">8</column>
+            <column name="category_name">electronics_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">9</column>
+            <column name="category_name">home_goods_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">10</column>
+            <column name="category_name">store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">11</column>
+            <column name="category_name">shopping_mall</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">12</column>
+            <column name="category_name">department_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">13</column>
+            <column name="category_name">furniture_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">14</column>
+            <column name="category_name">clothing_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">15</column>
+            <column name="category_name">shoe_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">16</column>
+            <column name="category_name">meal_takeaway</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">17</column>
+            <column name="category_name">bicycle_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">18</column>
+            <column name="category_name">cafe</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">19</column>
+            <column name="category_name">hardware_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">20</column>
+            <column name="category_name">atm</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">21</column>
+            <column name="category_name">bank</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">22</column>
+            <column name="category_name">finance</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">23</column>
+            <column name="category_name">bar</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">24</column>
+            <column name="category_name">dentist</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">25</column>
+            <column name="category_name">health</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">26</column>
+            <column name="category_name">real_estate_agency</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">27</column>
+            <column name="category_name">book_store</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">28</column>
+            <column name="category_name">spa</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">29</column>
+            <column name="category_name">supermarket</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">30</column>
+            <column name="category_name">grocery_or_supermarket</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">31</column>
+            <column name="category_name">insurance_agency</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">32</column>
+            <column name="category_name">gym</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">33</column>
+            <column name="category_name">beauty_salon</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">34</column>
+            <column name="category_name">pharmacy</column>
+        </table>
+        <table name="venue_category">
+            <column name="venue_category_id">35</column>
+            <column name="category_name">cemetery</column>
+        </table>
+        <!-- Table weather -->
+        <table name="weather">
+            <column name="city_id">1</column>
+            <column name="last_checked">2018-03-06 14:18:53</column>
+            <column name="published_at">2018-03-06 13:00:00</column>
+            <column name="current_temp">44</column>
+            <column name="weather_code">26</column>
+        </table>
+        <table name="weather">
+            <column name="city_id">2</column>
+            <column name="last_checked">2018-03-06 14:08:20</column>
+            <column name="published_at">2018-03-06 13:00:00</column>
+            <column name="current_temp">50</column>
+            <column name="weather_code">26</column>
+        </table>
+        <!-- Table weather_codes -->
+        <table name="weather_codes">
+            <column name="weather_code_id">0</column>
+            <column name="description">tornado</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">1</column>
+            <column name="description">tropical storm</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">2</column>
+            <column name="description">hurricane</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">3</column>
+            <column name="description">severe thunderstorms</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">4</column>
+            <column name="description">thunderstorms</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">5</column>
+            <column name="description">mixed rain and snow</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">6</column>
+            <column name="description">mixed rain and sleet</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">7</column>
+            <column name="description">mixed snow and sleet</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">8</column>
+            <column name="description">freezing drizzle</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">9</column>
+            <column name="description">drizzle</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">10</column>
+            <column name="description">freezing rain</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">11</column>
+            <column name="description">showers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">12</column>
+            <column name="description">showers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">13</column>
+            <column name="description">snow flurries</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">14</column>
+            <column name="description">light snow showers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">15</column>
+            <column name="description">blowing snow</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">16</column>
+            <column name="description">snow</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">17</column>
+            <column name="description">hail</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">18</column>
+            <column name="description">sleet</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">19</column>
+            <column name="description">dust</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">20</column>
+            <column name="description">foggy</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">21</column>
+            <column name="description">haze</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">22</column>
+            <column name="description">smoky</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">23</column>
+            <column name="description">blustery</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">24</column>
+            <column name="description">windy</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">25</column>
+            <column name="description">cold</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">26</column>
+            <column name="description">cloudy</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">27</column>
+            <column name="description">mostly cloudy (night)</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">28</column>
+            <column name="description">mostly cloudy (day)</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">29</column>
+            <column name="description">partly cloudy (night)</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">30</column>
+            <column name="description">partly cloudy (day)</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">31</column>
+            <column name="description">clear (night)</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">32</column>
+            <column name="description">sunny</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">33</column>
+            <column name="description">fair (night)</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">34</column>
+            <column name="description">fair (day)</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">35</column>
+            <column name="description">mixed rain and hail</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">36</column>
+            <column name="description">hot</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">37</column>
+            <column name="description">isolated thunderstorms</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">38</column>
+            <column name="description">scattered thunderstorms</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">39</column>
+            <column name="description">scattered thunderstorms</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">40</column>
+            <column name="description">scattered showers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">41</column>
+            <column name="description">heavy snow</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">42</column>
+            <column name="description">scattered snow showers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">43</column>
+            <column name="description">heavy snow</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">44</column>
+            <column name="description">partly cloudy</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">45</column>
+            <column name="description">thundershowers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">46</column>
+            <column name="description">snow showers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">47</column>
+            <column name="description">isolated thundershowers</column>
+        </table>
+        <table name="weather_codes">
+            <column name="weather_code_id">3200</column>
+            <column name="description">not available</column>
+        </table>
+    </database>
+</pma_xml_export>
