@@ -293,7 +293,7 @@ function get_city_woeid($cityid, &$conn)
         {
             return -1;
         } else {
-            return (int)$result[0][0];
+            return (int)$result[0]['woeid'];
         }
 
     }catch (Exception $ex)

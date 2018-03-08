@@ -6,11 +6,11 @@
 #backgroundWithImage
 {
 
-    background-image : url("http://www.telegraph.co.uk/content/dam/Travel/galleries/travel/picturegalleries/The-worlds-best-city-skylines/skyline-toronto_3461626a.jpg") ;
+    background-image : url("https://farm5.staticflickr.com/4782/26799068138_80d46bfb3d.jpg") ;
     background-position: left top;
     background-repeat : no-repeat;
     background-color : #e5e5e5;
-    background-size :100% 25%;
+    background-size :100% 20%;
 
 }
 
@@ -30,35 +30,30 @@
 #todaysWeatherVertical
 {
 
-
-
 }
 
 #todaysWeatherHorizontal
 {
-
-
 
 }
 
 #cityInfo
 {
 
-
-
 }
 
 #weatherForecast
 {
 
+}
 
+#flickrDiv
+{
 
 }
 
-#locationInfo
+#twitterDiv
 {
-
-
 
 }
 
