@@ -11,8 +11,10 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <!-- link to local CSS -->
+    <!-- link to local CSS for group section-->
     <link rel="stylesheet" type="text/css" href="TwinCities.css" />
+    <!-- link to local CSS for ALEX FOULDS Flickr section-->
+    <link rel="stylesheet" type="text/css" href="Alex_Flickr/style.css" />
     <!-- link to local JavaScript -->
     <script type="text/javascript" src="myScripts.js"></script>
 
@@ -134,43 +136,8 @@
                 <div class="row">        
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
-                        
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hausziege_04.jpg/1200px-Hausziege_04.jpg">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hausziege_04.jpg/1200px-Hausziege_04.jpg" alt="Lights" style="width:100%">
-                                    <div class="caption">
-                                        <p>Lorem ipsum...</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
 
-
-
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <a href="https://upload.wikimedia.org/wikipedia/commons/f/ff/Domestic_goat_kid_in_capeweed.jpg">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Domestic_goat_kid_in_capeweed.jpg" alt="Lights" style="width:100%">
-                                    <div class="caption">
-                                        <p>Lorem ipsum...</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <a href="https://i.ytimg.com/vi/cEJy2q27hVk/maxresdefault.jpg">
-                                    <img src="https://i.ytimg.com/vi/cEJy2q27hVk/maxresdefault.jpg" alt="Lights" style="width:100%">
-                                    <div class="caption">
-                                        <p>Lorem ipsum...</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
+                        <div id="flickrDiv"> Please Wait, Images Loading </div>
 
                     </div>
 
@@ -180,7 +147,7 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
                         
-                        <div id="locationInfo"> </div>
+                        <div id="twitterDiv"> </div>
 
                     </div>
 

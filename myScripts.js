@@ -12,13 +12,32 @@
 // change every element containing info about a city
 function loadDetailsOf(city)
 {
+    cityBackground(city);
+
     myMap(city);
 
     weather(city);
 
     cityInfo(city);
 
-    locationInfo(city);
+    loadFlickr(city);
+
+    loadTwitter(city);
+
+}
+
+function cityBackground(city)
+{
+    var cityBackground = document.getElementById("backgroundWithImage");
+
+    if (city == 1)
+    {
+        cityBackground.style.backgroundImage = "url('https://farm5.staticflickr.com/4782/26799068138_80d46bfb3d.jpg')";
+    }
+    else if (city == 2)
+    {
+        cityBackground.style.backgroundImage = "url('https://farm5.staticflickr.com/4790/40650731872_c366958e63.jpg')";
+    }
 
 }
 
@@ -306,9 +325,9 @@ function weather(city)
     
         error: function()
         {
-            todayVertical.innerHTML = "weather fetching failed";
-            todayHorizontal.innerHTML = "weather fetching failed";
-            forecast.innerHTML = "weather fetching failed";
+            todayVertical.innerHTML = "weather fetching AJAX failed";
+            todayHorizontal.innerHTML = "weather fetching AJAX failed";
+            forecast.innerHTML = "weather fetching AJAX failed";
         },
     
         success: function(data)
@@ -325,7 +344,7 @@ function weather(city)
             for (var i = 0; i < 10; i++) 
             { 
 
-                weatherOutput += "<div class=\"well\" style=\"width:49%; margin:1px; display: inline-block;\">"; 
+                weatherOutput += "<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6 well\" style=\"text-align: center;\">"; 
 
                 if (i == 0)
                 {
@@ -422,41 +441,45 @@ function cityInfo(city)
 
 }
 
-// will populate the box below the image gallery with info about the location chosen 
-function locationInfo(location)
+
+function loadFlickr(city)
 {
-    var content = ""
-
-    // default output before any location has been chosen
-    if ((location == 1) || (location == 2))
+    var which;
+    var flickrDiv = document.getElementById("flickrDiv");
+    flickrDiv.innerHTML = "Please Wait, Images Loading";
+    if (city == 1)
     {
-
-        content = ` <h1> Looks like you haven't chosen a location on the map yet! </h1>
-                    <h1> Simply scroll back up there or use the handy button in the bottom right</h1>
-                  `;
-
+        which = 26062;
+    }
+    else if (city == 2)
+    {
+        which = 627791;
     }
 
-    // change info output base on location passed in 
-    switch(location) {
-        case 'bestPlace':
+    dataString='woeid='+which +'&radius=12&photosNum=10';
 
-            content = ` <h1> Parkers The Parts People </h1>
-                      `;
-
-
-            break;
-        case 'notBestPlace':
-            
-
-
-            break;
-
-    }
-
-    // apply the content of 
-    var locationDiv = document.getElementById("locationInfo");
-    locationDiv.innerHTML = content;
-
+    $.ajax({
+        //Create ajax call to php file with relevent data
+        type:"post",
+        url:"Alex_Flickr/flickrPhotoGet.php",
+        data:dataString,
+        cache:false,
+        error: function()
+        {
+            flickrDiv.innerHTML = "flickr Ajax Failes";
+        },
+        success:function(html)
+        {
+            flickrDiv.innerHTML = html;
+        }
+    });
 }
 
+// will populate the box below the image gallery with info about the location chosen 
+function loadTwitter(city)
+{
+
+    var twitterDiv = document.getElementById("twitterDiv");
+    twitterDiv.innerHTML = "Tweets Not Loaded";
+
+}
