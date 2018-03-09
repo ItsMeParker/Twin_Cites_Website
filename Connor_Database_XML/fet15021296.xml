@@ -8,22 +8,22 @@
 -->
 <database databaseName="fet15021296">
     <country countryName="United Kingdom"> 
-        <country_name>United Kingdom</country_name>
+        <countryName>United Kingdom</countryName>
         <population>65640000</population>
-        <national_language>English</national_language>
+        <nationalLanguage>English</nationalLanguage>
         <gdp>2.619 trillion</gdp>
-        <wiki_link>www.wikipedia.com/UnitedKingdom</wiki_link>
+        <wikiLink>www.wikipedia.com/UnitedKingdom</wikiLink>
 
         <city cityName="leicester">     
-            <geocode_latitude>52.636959</geocode_latitude>
-            <geocode_longitude>1.129040</geocode_longitude>
+            <geocodeLatitude>52.636959</geocodeLatitude>
+            <geocodeLongitude>1.129040</geocodeLongitude>
             <woeid>26062</woeid>
-            <county_state>Leicestershire</county_state>
+            <countyState>Leicestershire</countyState>
             <population>329839</population>
             <area>28</area>
             <currency>Pounds</currency>
-            <primary_language>English</primary_language>
-            <wiki_link>https://en.wikipedia.org/wiki/Leicester</wiki_link>
+            <primaryLanguage>English</primaryLanguage>
+            <wikiLink>https://en.wikipedia.org/wiki/Leicester</wikiLink>
 
             <attractions>
                 <localAttraction>
@@ -169,62 +169,62 @@
             </attractions>
 
             <weather>
-                <last_checked>2018-03-06 14:18:53</last_checked>
+                <lastChecked>2018-03-06 14:18:53</lastChecked>
                 <published_at>2018-03-06 13:00:00</published_at>
                 <current_temp>44</current_temp>
-                <weather_code>cloudy</weather_code>
+                <weatherCode>cloudy</weatherCode>
             </weather>
 
             <forecast>
                 <date  dateOffset="0">
-                    <weather_code>showers</weather_code>
-                    <temp_high>46</temp_high>
-                    <temp_low>37</temp_low>
+                    <weatherCode>showers</weatherCode>
+                    <tempHigh>46</tempHigh>
+                    <tempLow>37</tempLow>
                 </date>
                 <date dateOffset="1">
-                    <weather_code>mostly cloudy (day)</weather_code>
-                    <temp_high>47</temp_high>
-                    <temp_low>34</temp_low>
+                    <weatherCode>mostly cloudy (day)</weatherCode>
+                    <tempHigh>47</tempHigh>
+                    <tempLow>34</tempLow>
                 </date>
                 <date dateOffset="2">
-                    <weather_code>partly cloudy (day)</weather_code>
-                    <temp_high>45</temp_high>
-                    <temp_low>35</temp_low>
+                    <weatherCode>partly cloudy (day)</weatherCode>
+                    <tempHigh>45</tempHigh>
+                    <tempLow>35</tempLow>
                 </date>
                 <date dateOffset="3">
-                    <weather_code>scattered thunderstorms</weather_code>
-                    <temp_high>46</temp_high>
-                    <temp_low>33</temp_low>
+                    <weatherCode>scattered thunderstorms</weatherCode>
+                    <tempHigh>46</tempHigh>
+                    <tempLow>33</tempLow>
                 </date>
                 <date dateOffset="4">
-                    <weather_code>showers</weather_code>
-                    <temp_high>47</temp_high>
-                    <temp_low>40</temp_low>
+                    <weatherCode>showers</weatherCode>
+                    <tempHigh>47</tempHigh>
+                    <tempLow>40</tempLow>
                 </date>
                 <date dateOffset="5">
-                    <weather_code>cloudy</weather_code>
-                    <temp_high>49</temp_high>
-                    <temp_low>41</temp_low>
+                    <weatherCode>cloudy</weatherCode>
+                    <tempHigh>49</tempHigh>
+                    <tempLow>41</tempLow>
                 </date>
                 <date dateOffset="6">
-                    <weather_code>scattered thunderstorms</weather_code>
-                    <temp_high>46</temp_high>
-                    <temp_low>40</temp_low>
+                    <weatherCode>scattered thunderstorms</weatherCode>
+                    <tempHigh>46</tempHigh>
+                    <tempLow>40</tempLow>
                 </date>
                 <date dateOffset="7">
-                    <weather_code>blustery</weather_code>
-                    <temp_high>46</temp_high>
-                    <temp_low>38</temp_low>
+                    <weatherCode>blustery</weatherCode>
+                    <tempHigh>46</tempHigh>
+                    <tempLow>38</tempLow>
                 </date>
                 <date dateOffset="8">
-                    <weather_code>mostly cloudy (day)</weather_code>
-                    <temp_high>45</temp_high>
-                    <temp_low>37</temp_low>
+                    <weatherCode>mostly cloudy (day)</weatherCode>
+                    <tempHigh>45</tempHigh>
+                    <tempLow>37</tempLow>
                 </date>
                 <date dateOffset="9">
-                    <weather_code>blustery</weather_code>
-                    <temp_high>44</temp_high>
-                    <temp_low>39</temp_low>
+                    <weatherCode>blustery</weatherCode>
+                    <tempHigh>44</tempHigh>
+                    <tempLow>39</tempLow>
                 </date>
             </forecast>
     
@@ -232,23 +232,23 @@
     </country>
 
     <country countryName="Franch"> 
-        <country_name>Franch</country_name>
+        <countryName>Franch</countryName>
         <population>67201000</population>
-        <national_language>French</national_language>
+        <nationalLanguage>French</nationalLanguage>
         <gdp>2.465 trillion</gdp>
-        <wiki_link>https://en.wikipedia.org/wiki/France</wiki_link>
+        <wikiLink>https://en.wikipedia.org/wiki/France</wikiLink>
  
     
         <city cityName="strasbourg">     
-            <geocode_latitude>48.570930</geocode_latitude>
-            <geocode_longitude>7.757880</geocode_longitude>
+            <geocodeLatitude>48.570930</geocodeLatitude>
+            <geocodeLongitude>7.757880</geocodeLongitude>
             <woeid>627791</woeid>
-            <county_state>Bas-Rhin</county_state>
+            <countyState>Bas-Rhin</countyState>
             <population>276170</population>
             <area>78</area>
             <currency>Euro</currency>
-            <primary_language>French</primary_language>
-            <wiki_link>https://en.wikipedia.org/wiki/Strasbourg</wiki_link>
+            <primaryLanguage>French</primaryLanguage>
+            <wikiLink>https://en.wikipedia.org/wiki/Strasbourg</wikiLink>
     
             <attractions>
                 <localAttraction>
@@ -394,62 +394,62 @@
             </attractions>
 
             <weather>
-                <last_checked>2018-03-0614:08:20</last_checked>
-                <published_at>2018-03-0613:00:00</published_at>
+                <lastChecked>2018-03-06 14:08:20</lastChecked>
+                <published_at>2018-03-06 13:00:00</published_at>
                 <current_temp>50</current_temp>
-                <weather_code>cloudy</weather_code>
+                <weatherCode>cloudy</weatherCode>
             </weather>
 
             <forecast>
                 <date dateOffset="0">
-                    <weather_code>scattered thunderstorms</weather_code>
-                    <temp_high>51</temp_high>
-                    <temp_low>34</temp_low>
+                    <weatherCode>scattered thunderstorms</weatherCode>
+                    <tempHigh>51</tempHigh>
+                    <tempLow>34</tempLow>
                 </date>
                 <date dateOffset="1">
-                    <weather_code>scattered thunderstorms</weather_code>
-                    <temp_high>49</temp_high>
-                    <temp_low>41</temp_low>
+                    <weatherCode>scattered thunderstorms</weatherCode>
+                    <tempHigh>49</tempHigh>
+                    <tempLow>41</tempLow>
                 </date>
                 <date dateOffset="2">
-                    <weather_code>mostly cloudy (day)</weather_code>
-                    <temp_high>51</temp_high>
-                    <temp_low>38</temp_low>
+                    <weatherCode>mostly cloudy (day)</weatherCode>
+                    <tempHigh>51</tempHigh>
+                    <tempLow>38</tempLow>
                 </date>
                 <date dateOffset="3">
-                    <weather_code>showers</weather_code>
-                    <temp_high>54</temp_high>
-                    <temp_low>44</temp_low>
+                    <weatherCode>showers</weatherCode>
+                    <tempHigh>54</tempHigh>
+                    <tempLow>44</tempLow>
                 </date>
                 <date dateOffset="4">
-                    <weather_code>scattered thunderstorms</weather_code>
-                    <temp_high>56</temp_high>
-                    <temp_low>49</temp_low>
+                    <weatherCode>scattered thunderstorms</weatherCode>
+                    <tempHigh>56</tempHigh>
+                    <tempLow>49</tempLow>
                 </date>
                 <date dateOffset="5">
-                    <weather_code>scattered thunderstorms</weather_code>
-                    <temp_high>56</temp_high>
-                    <temp_low>45</temp_low>
+                    <weatherCode>scattered thunderstorms</weatherCode>
+                    <tempHigh>56</tempHigh>
+                    <tempLow>45</tempLow>
                 </date>
                 <date dateOffset="6">
-                    <weather_code>scattered thunderstorms</weather_code>
-                    <temp_high>54</temp_high>
-                    <temp_low>46</temp_low>
+                    <weatherCode>scattered thunderstorms</weatherCode>
+                    <tempHigh>54</tempHigh>
+                    <tempLow>46</tempLow>
                 </date>
                 <date dateOffset="7">
-                    <weather_code>showers</weather_code>
-                    <temp_high>50</temp_high>
-                    <temp_low>42</temp_low>
+                    <weatherCode>showers</weatherCode>
+                    <tempHigh>50</tempHigh>
+                    <tempLow>42</tempLow>
                 </date>
                 <date dateOffset="8">
-                    <weather_code>showers</weather_code>
-                    <temp_high>54</temp_high>
-                    <temp_low>43</temp_low>
+                    <weatherCode>showers</weatherCode>
+                    <tempHigh>54</tempHigh>
+                    <tempLow>43</tempLow>
                 </date>
                 <date dateOffset="9">
-                    <weather_code>blustery</weather_code>
-                    <temp_high>55</temp_high>
-                    <temp_low>45</temp_low>
+                    <weatherCode>blustery</weatherCode>
+                    <tempHigh>55</tempHigh>
+                    <tempLow>45</tempLow>
                 </date>
             </forecast>
 
