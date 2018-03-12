@@ -32,15 +32,100 @@ catch (Exception $ex)
   /*Generate the RSS to be displayed making use of the $feedPrint variable to first append the relevant data 
   	to be echoed to it, and then proceed to echo/print said data to the browser */
 
- $feedPrint = '<?xml version="1.0" encoding="UTF-8"?>';
- $feedPrint .= '<rss version=2.0>';
- $feedPrint .= '<channel>';
- $feedPrint .= '<title>RSS feed </title>';
- $feedPrint .= '<link>www.cems.uwe.ac.uk/~c29-parker/... </link>'; //complete path
- $feedPrint .= '<description>This is the RSS feed generated for the \'Twin cities\' website.</description>';
-
-	foreach ($data as $item) 
+$feedPrint = '<?xml version="1.0" encoding="UTF-8"?>';
+$feedPrint .= '<rss version=2.0>';
+$feedPrint .= '<channel>';
+$feedPrint .= '<title>RSS feed </title>';
+$feedPrint .= '<link>www.cems.uwe.ac.uk/~c29-parker/... </link>'; //complete path
+$feedPrint .= '<description>This is the RSS feed generated for the \'Twin cities\' website.</description>';
+ $data = []
+	foreach ($data['city'] as $cityItem) 
 	{
-		
+		$feedPrint .= '<item>';
+		$feedPrint .= '<title>' . cityItem[] . '</title>';
+		$feedPrint .= '<description>' . . '</description>';
+		$feedPrint .= '<link>' .  . '</link>';
+		$feedPrint .= '</item>';
 	}
+
+		foreach ($data['country'] as $countryItem) 
+	{
+		$feedPrint .= '<item>';
+		$feedPrint .= '<title>' . countryItem[] . '</title>';
+		$feedPrint .= '<description>' . . '</description>';
+		$feedPrint .= '<link>' .  . '</link>';
+		$feedPrint .= '</item>';
+	}
+
+		foreach ($data['forecast'] as $weatherItem) 
+	{
+		$feedPrint .= '<item>';
+		$feedPrint .= '<title>' . weatherItem[] . '</title>';
+		$feedPrint .= '<description>' . . '</description>';
+		$feedPrint .= '<link>' .  . '</link>';
+		$feedPrint .= '</item>';
+	}
+
+		foreach ($data['local_attractions'] as $poiItem) 
+	{
+		$feedPrint .= '<item>';
+		$feedPrint .= '<title>' . poiItem[] . '</title>';
+		$feedPrint .= '<description>' . . '</description>';
+		$feedPrint .= '<link>' .  . '</link>';
+		$feedPrint .= '</item>';
+	}
+
+echo ($feedPrint);
+
+
+/*
+-
+-
+-
+
+-> table:city
+	->city_id #not sure/maybe not needed 
+	->city_name
+	->geocode_latitude
+	->geocode_longitude
+	->country
+	->woeid
+	->county_state
+	->population
+	->area
+	->currency
+	->primary_language
+	->wiki_link
+-> table:country
+	->country_id #not sure/maybe not needed
+	->country_name
+	->population
+	->national_language
+	->wiki_link
+	->gdp
+-> table:forecast
+	->date_offset
+	->temp_high
+	->temp_low
+	->city_id #format it to display city_name instead (if)
+	
+-> table:local_attractions
+	->city
+	->attraction_name
+	->geocode_latitude
+	->geocode_longitude
+	->website #link
+	->rating #of attraction
+-> table:weather
+	->city_id #format to display city_name
+	->current_temp
+	->weather_code #format to display actual text (?)
+
+-> ignored tables: venue_category, weather_codes
+
+-
+-
+-
+*/
+
 ?>
