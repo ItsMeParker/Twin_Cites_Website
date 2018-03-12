@@ -32,5 +32,15 @@ catch (Exception $ex)
   /*Generate the RSS to be displayed making use of the $feedPrint variable to first append the relevant data 
   	to be echoed to it, and then proceed to echo/print said data to the browser */
 
- $feedPrint
+ $feedPrint = '<?xml version="1.0" encoding="UTF-8"?>';
+ $feedPrint .= '<rss version=2.0>';
+ $feedPrint .= '<channel>';
+ $feedPrint .= '<title>RSS feed </title>';
+ $feedPrint .= '<link>www.cems.uwe.ac.uk/~c29-parker/... </link>'; //complete path
+ $feedPrint .= '<description>This is the RSS feed generated for the \'Twin cities\' website.</description>';
+
+	foreach ($data as $item) 
+	{
+		
+	}
 ?>
