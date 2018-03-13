@@ -1,12 +1,19 @@
+<?php
+require_once 'Resources/pdo_interfaces.php';
 
-<?php 
-include_once(__DIR__ . '/config.php');
-include_once(__DIR__ . '/pdo_interfaces.php')
+/*Establish a connection to the database*/
+
+
+if(!isset($_GET['cid']))
+{
+    //perhaps change to redirect to homepage
+    die("No cid passed");
+}
+$city_id = $_GET['cid'];
+
 
 /*Establish a connection to the database*/
 $conn = get_connection();
-$city_id = $_GET['cid'];
-
 /*Retrieve all data from the following tables using their respective
   functions so that it can be displayed as an RSS feed later.
   Table:   				Function:
@@ -15,19 +22,18 @@ $city_id = $_GET['cid'];
  'forecast'  			access_weather
  'local_attractions'	get_poi_by_id	*/
 
-try	{
-		$data['cityData'] = get_city_data($city_id, $conn);
-		$data['countryData'] = get_country_data($data['city'][0]['country'], $conn); /*Change 0 for city_id to dinamically generate for each city */
-		$data['weatherData'] = access_weather($city_id, $conn);
-		$data['poiByID'] = get_poi_by_id($cid, $conn);
-		
-		json_encode($data);
-	}
-
+try
+{
+    $cityData = get_city_data($city_id, $conn)[0];
+    $countryData = get_country_data($cityData['country'], $conn)[0]; /*Change 0 for city_id to dinamically generate for each city */
+    $weatherData = access_weather($city_id, $conn);
+    $placesOfInterest = get_poi_by_id($city_id, $conn);
+}
 catch (Exception $ex)
-	{
-		echo json_encode('ERROR: Invalid CID');
-	}
+{
+    header('Location: http://cems.uwe.ac.uk/~c29-parker/Twin_Cities');
+    exit;
+}
 
   /*Generate the RSS to be displayed making use of the $feedPrint variable to first append the relevant data 
   	to be echoed to it, and then proceed to echo/print said data to the browser */
@@ -35,45 +41,101 @@ catch (Exception $ex)
 $feedPrint = '<?xml version="1.0" encoding="UTF-8"?>';
 $feedPrint .= '<rss version=2.0>';
 $feedPrint .= '<channel>';
-$feedPrint .= '<title>RSS feed </title>';
-$feedPrint .= '<link>www.cems.uwe.ac.uk/~c29-parker/... </link>'; //complete path
-$feedPrint .= '<description>This is the RSS feed generated for the \'Twin cities\' website.</description>';
- $data = []
-	foreach ($data['city'] as $cityItem) 
-	{
-		$feedPrint .= '<item>';
-		$feedPrint .= '<title>' . cityItem[] . '</title>';
-		$feedPrint .= '<description>' . . '</description>';
-		$feedPrint .= '<link>' .  . '</link>';
-		$feedPrint .= '</item>';
-	}
+$feedPrint .= '<title>RSS feed for ' . $cityData['city_name'] . '</title>';
 
-		foreach ($data['country'] as $countryItem) 
-	{
-		$feedPrint .= '<item>';
-		$feedPrint .= '<title>' . countryItem[] . '</title>';
-		$feedPrint .= '<description>' . . '</description>';
-		$feedPrint .= '<link>' .  . '</link>';
-		$feedPrint .= '</item>';
-	}
+if(isset($_SERVER['SERVER_NAME']) && isset($_SERVER['REQUEST_URI']))
+{
+    $address = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+}
+else {
+    $address = "http://cems.uwe.ac.uk";
+}
 
-		foreach ($data['forecast'] as $weatherItem) 
-	{
-		$feedPrint .= '<item>';
-		$feedPrint .= '<title>' . weatherItem[] . '</title>';
-		$feedPrint .= '<description>' . . '</description>';
-		$feedPrint .= '<link>' .  . '</link>';
-		$feedPrint .= '</item>';
-	}
+$feedPrint .= "<link>$address</link>"; //complete path
+$feedPrint .= '<description>This is the RSS feed generated for the \'Twin cities\' website location, ' . $cityData['city_name'] . ' in ' . $countryData['country_name'] .'.' . '</description>';
 
-		foreach ($data['local_attractions'] as $poiItem) 
-	{
-		$feedPrint .= '<item>';
-		$feedPrint .= '<title>' . poiItem[] . '</title>';
-		$feedPrint .= '<description>' . . '</description>';
-		$feedPrint .= '<link>' .  . '</link>';
-		$feedPrint .= '</item>';
-	}
+
+$cityDescription = <<< EOT
+Woeid for {$cityData['city_name']}: {$cityData['woeid']}, 
+County: {$cityData['county_state']}, 
+Population: {$cityData['population']}, 
+Area: {$cityData['area']} km^2, 
+Currency: {$cityData['currency']}, 
+Primary Language: {$cityData['primary_language']}. 
+EOT;
+
+ 
+/* city */ 
+$feedPrint .= '<item>'; 
+$feedPrint .= "<title>Data for {$cityData['city_name']}</title>"; 
+$feedPrint .= '<description>' . $cityDescription . '</description>'; 
+$feedPrint .= '<link>' . $cityData['wiki_link'] . '</link>';
+$feedPrint .= '</item>';
+
+$countryDescription = <<<EOT
+
+Population: {$countryData['population']},
+National Language: {$countryData['national_language']},
+GDP: {$countryData['gdp']},
+
+EOT;
+
+$feedPrint .= '<item>';
+$feedPrint .= "<title>Data for {$countryData['country_name']}</title>";
+$feedPrint .= '<description>' . $countryDescription . '</description>';
+$feedPrint .= "<link>{$countryData['wiki_link']}</link>";
+$feedPrint .= '</item>';
+
+/* weather */
+$weatherDescription = <<< EOT
+
+Current conditions for {$cityData['city_name']} are: {$weatherData['weather']['description']}.
+The temperature is: {$weatherData['weather']['current_temp']}.
+
+Last updated: {$weatherData['weather']['published_at']}.
+
+EOT;
+
+foreach ($weatherData['forecast'] as $var)
+{
+    $weatherDescription .= <<< EOT
+
+The forecast for day {$var['date_offset']} is {$var['description']}
+with a high of {$var['temp_high']}
+and a low of {$var['temp_low']}.
+
+EOT;
+
+}
+
+$feedPrint .= '<item>';
+$feedPrint .= '<title>Weather</title>';
+$feedPrint .= '<description>' . $weatherDescription . '</description>';
+$feedPrint .= "<link>https://www.yahoo.com/news/weather/country/state/city-{$cityData['woeid']}/</link>";
+$feedPrint .= '</item>';
+
+$placesOfInterestDescription = '';
+foreach ($placesOfInterest as $var)
+{
+    $rating = ($var['rating'] != -1) ? $var['rating'] : 'unrated';
+    $placesOfInterestDescription .= <<<EOT
+
+Attraction name: {$var['attraction_name']},
+latitude/longitude: {$var['geocode_latitude']},{$var['geocode_longitude']},
+Rating: {$rating},
+More info: {$var['website']}
+
+
+EOT;
+
+}
+
+/* places of interest */
+$feedPrint .= '<item>';
+$feedPrint .= '<title>Places of interest</title>';
+$feedPrint .= '<description>' . $placesOfInterestDescription . '</description>';
+
+$feedPrint .= '</item>';
 
 echo ($feedPrint);
 
@@ -128,4 +190,3 @@ echo ($feedPrint);
 -
 */
 
-?>
