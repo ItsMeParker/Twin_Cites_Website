@@ -1,5 +1,12 @@
 <?php
 
+/*
+
+This code was given in the tutorial session to allow the use of the twitter api.
+
+*/
+
+
 /**
  * Twitter-API-PHP : Simple PHP wrapper for the v1.1 API
  *
