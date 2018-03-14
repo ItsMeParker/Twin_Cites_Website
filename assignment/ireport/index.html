@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Individual Report - XML and XML-Schema Data Set</h1>
+<p>Connor Parker - 16012593</p>
+
+<h3>Project Overview</h3>
+<p>
+    
+    The individual section I choose was to refactor the data contained within the database from SQL to an XML document. Then to validate the created XML with an XML - Schema (XSD). The bulk of the work involved generating a dumpfile of the database, containing the data as well as the structure, then picking out the relevant data, using it to create the xml layout and inserting the data. The structural information like that in linking tables was not included since it is not relevant. <br/><br/>
+
+    Next was to create the XSD. To do this I input the XML into oxygen and generated a generic XML-Schema. This generated schema performed some validation but was not specific in certain cases which led me to create my own definitions for elements and types. <br/><br/>
+
+    The data types that I validated were; latitude, longitude, gdp, rating, and date time stamp. The validation of the latitude and longitude required some amount of research into what counts as a valid latitude or longitude. The result I found was that latitude can be between -90 to 90 inclusive, and longitude can be between -180 to 180 inclusive. For gdp and rating the formatting only depended on how we wanted the data stored and the date time stamp only needed to match the example given.
+
+</p>
+
+
+<h3>Problems During Task Development</h3>
+<p> There were no problems that entirely derailed my work however there where some that slowed process
+    <ul>
+        <li>It was difficult to be sure about how the XML should be constructed and I struggled to find examples of XML that was converted from a SQL database</li>
+        <li>When creating the regular expressions lack of knowlege led me to use some roundabout methods before understanding that there were better methods</li>
+    </ul></p>
+
+    <h3>Thing I Would Do Differently</h3>
+    <p>I would have wanted to create an xslt however the it was not a good use of my time over the course of development</p>
+
+
+    <a href="sourceCode.php"><h4>Main Individual Project Source Code</h4></a>
+
+</body>
+</html>
+

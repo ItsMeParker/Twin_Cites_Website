@@ -6,7 +6,8 @@
 <!--
 - Database: 'fet15021296'
 -->
-<database databaseName="fet15021296">
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="fet15021296.xsd" databaseName="fet15021296">
     <country countryName="United Kingdom"> 
         <countryName>United Kingdom</countryName>
         <population>65640000</population>
