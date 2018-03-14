@@ -12,11 +12,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- link to local CSS for group section-->
-    <link rel="stylesheet" type="text/css" href="TwinCities.css" />
+    <link rel="stylesheet" type="text/css" href="css/TwinCities.css" />
     <!-- link to local CSS for ALEX FOULDS Flickr section-->
-    <link rel="stylesheet" type="text/css" href="Alex_Flickr/style.css" />
+    <link rel="stylesheet" type="text/css" href="flickr/style.css" />
     <!-- link to local JavaScript -->
-    <script type="text/javascript" src="myScripts.js"></script>
+    <script type="text/javascript" src="javascript/TwinCities.js"></script>
 
     <!-- allow google maps api to be used -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCONGcG-MhlId-XYjIGJPwxhLjMWMtEreY&callback=myMap"></script>
@@ -29,12 +29,6 @@
         <div class="row">
 
             <div class="col-sm-12 col-md-12 col-lg-12" id="cityButtonsContainer">
-
-
-
-
-                    <!-- dynamically generate number of buttons based on number of entries in database --> 
-
 
 
                 <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3 verticalMiddle sideBar">
@@ -153,12 +147,24 @@
 
                 </div>
 
+                <div class="row">
+    
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
+                        
+                        <div id="RSSDiv">                     
+                            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='rss/generate_rss_feed.php?cid=1'">Generate RSS of x </button>
+                        </div>
+    
+                    </div>
+
+                </div>            
+
             </div>
 
             <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
                 This is the right spacer bar that will dissapear when width is sm or smaller
             </div>
-        </div> 
+        </div>         
 
         <!-- end of one row --> 
 

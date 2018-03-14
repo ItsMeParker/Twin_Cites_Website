@@ -1,6 +1,6 @@
 <?php
 
-include_once('Resources/pdo_interfaces.php');
+include_once('../database_resources/pdo_interfaces.php');
 
 $city_id = $_GET['cid'];
 

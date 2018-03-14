@@ -1,5 +1,5 @@
 <?php
-require_once 'Resources/pdo_interfaces.php';
+require_once '../database_resources/pdo_interfaces.php';
 
 /*Establish a connection to the database*/
 
@@ -35,11 +35,12 @@ catch (Exception $ex)
     exit;
 }
 
-  /*Generate the RSS to be displayed making use of the $feedPrint variable to first append the relevant data 
+  /*Generate the RSS to be displayed making use of the $feedPrint variable to first append the relevant data
   	to be echoed to it, and then proceed to echo/print said data to the browser */
 
+//header("Content-Type: application/rss+xml; charset=ISO-8859-1");
 $feedPrint = '<?xml version="1.0" encoding="UTF-8"?>';
-$feedPrint .= '<rss version=2.0>';
+$feedPrint .= '<rss version="2.0">';
 $feedPrint .= '<channel>';
 $feedPrint .= '<title>RSS feed for ' . $cityData['city_name'] . '</title>';
 
@@ -56,19 +57,19 @@ $feedPrint .= '<description>This is the RSS feed generated for the \'Twin cities
 
 
 $cityDescription = <<< EOT
-Woeid for {$cityData['city_name']}: {$cityData['woeid']}, 
-County: {$cityData['county_state']}, 
-Population: {$cityData['population']}, 
-Area: {$cityData['area']} km^2, 
-Currency: {$cityData['currency']}, 
-Primary Language: {$cityData['primary_language']}. 
+Woeid for {$cityData['city_name']}: {$cityData['woeid']},
+County: {$cityData['county_state']},
+Population: {$cityData['population']},
+Area: {$cityData['area']} km^2,
+Currency: {$cityData['currency']},
+Primary Language: {$cityData['primary_language']}.
 EOT;
 
- 
-/* city */ 
-$feedPrint .= '<item>'; 
-$feedPrint .= "<title>Data for {$cityData['city_name']}</title>"; 
-$feedPrint .= '<description>' . $cityDescription . '</description>'; 
+
+/* city */
+$feedPrint .= '<item>';
+$feedPrint .= "<title>Data for {$cityData['city_name']}</title>";
+$feedPrint .= '<description>' . $cityDescription . '</description>';
 $feedPrint .= '<link>' . $cityData['wiki_link'] . '</link>';
 $feedPrint .= '</item>';
 
@@ -136,6 +137,10 @@ $feedPrint .= '<title>Places of interest</title>';
 $feedPrint .= '<description>' . $placesOfInterestDescription . '</description>';
 
 $feedPrint .= '</item>';
+$feedPrint .= '</channel>';
+$feedPrint .= '</rss>';
+
+
 
 echo ($feedPrint);
 
@@ -146,7 +151,7 @@ echo ($feedPrint);
 -
 
 -> table:city
-	->city_id #not sure/maybe not needed 
+	->city_id #not sure/maybe not needed
 	->city_name
 	->geocode_latitude
 	->geocode_longitude
@@ -170,7 +175,7 @@ echo ($feedPrint);
 	->temp_high
 	->temp_low
 	->city_id #format it to display city_name instead (if)
-	
+
 -> table:local_attractions
 	->city
 	->attraction_name
@@ -189,4 +194,3 @@ echo ($feedPrint);
 -
 -
 */
-

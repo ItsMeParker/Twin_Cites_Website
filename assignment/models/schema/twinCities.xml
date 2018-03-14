@@ -10,7 +10,8 @@
 
 -->
 
-<twin_city_config>
+<twin_city_config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="twinCities.xsd">
 
     <uwe_environment>
         <base_url>isa.cems.uwe.ac.uk/~c29-parker/Twin_Cities/TwinCities.php</base_url>

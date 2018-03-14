@@ -51,7 +51,7 @@ function myMap(city)
 
     $.ajax({
 
-        url:"PlacesOfInterest.php" + "?cid=" + city
+        url:"ajax_calls/PlacesOfInterest.php" + "?cid=" + city
         ,
         dataType: 'json',
     
@@ -319,7 +319,7 @@ function weather(city)
 
     $.ajax({
 
-        url:"Weather.php" + "?cid=" + city
+        url:"ajax_calls/Weather.php" + "?cid=" + city
         ,
         dataType: 'json',
     
@@ -334,15 +334,21 @@ function weather(city)
         {
             // debugging 
             console.log(data);
+            // converts farenheit to celcius, changes to 3 signicant figures
+            data.weather.current_temp = ((data.weather.current_temp - 32)*(5/9)).toPrecision(3);
 
-            todayVertical.innerHTML = "<div class=\"well\" style=\"padding:10px;\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
+            // &#8451; is °C
+            todayVertical.innerHTML = "<div class=\"well\" style=\"padding:10px;\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "&#8451;<br/>Description: " + data.weather.description + "<br/> </div>";
 
-            todayHorizontal.innerHTML = "<div class=\"well\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "<br/>Description: " + data.weather.description + "<br/> </div>";
+            todayHorizontal.innerHTML = "<div class=\"well\"> <h4> Todays Weather </h4> <br/>Current Temp: " + data.weather.current_temp + "&#8451;<br/>Description: " + data.weather.description + "<br/> </div>";
 
             var weatherOutput = "<h3> Forecast </h3> <br/>"
 
             for (var i = 0; i < 10; i++) 
             { 
+                // converts farenheit to celcius, changes to 3 signicant figures
+                data.forecast[i].temp_high = ((data.forecast[i].temp_high - 32)*(5/9)).toPrecision(3);
+                data.forecast[i].temp_low = ((data.forecast[i].temp_low - 32)*(5/9)).toPrecision(3);
 
                 weatherOutput += "<div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6 well\" style=\"text-align: center;\">"; 
 
@@ -359,8 +365,8 @@ function weather(city)
                     weatherOutput += "<h4> Day" + String(i) +"</h4> <br/>"
                 }
     
-                weatherOutput += "Temp High: " + data.forecast[i].temp_high + "<br/>"; 
-                weatherOutput += "Temp Low: " + data.forecast[i].temp_low + "<br/>"; 
+                weatherOutput += "Temp High: " + data.forecast[i].temp_high + "&#8451;<br/>"; 
+                weatherOutput += "Temp Low: " + data.forecast[i].temp_low + "&#8451;<br/>"; 
                 weatherOutput += "Description: " + data.forecast[i].description + "<br/>"; 
 
                 weatherOutput += "</div>"
@@ -383,7 +389,7 @@ function cityInfo(city)
 
     $.ajax({
 
-        url:"CityInfo.php" + "?cid=" + city
+        url:"ajax_calls/CityInfo.php" + "?cid=" + city
         ,
         dataType: 'json',
     
@@ -461,7 +467,7 @@ function loadFlickr(city)
     $.ajax({
         //Create ajax call to php file with relevent data
         type:"post",
-        url:"Alex_Flickr/flickrPhotoGet.php",
+        url:"flickr/flickrPhotoGet.php",
         data:dataString,
         cache:false,
         error: function()

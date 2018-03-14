@@ -18,12 +18,8 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="base_url">
-    <xs:complexType/>
-  </xs:element>
-  <xs:element name="base_path">
-    <xs:complexType/>
-  </xs:element>
+  <xs:element name="base_url" type="xs:anyURI"/>
+  <xs:element name="base_path" type="xs:anyURI"/>
   <xs:element name="my_sql">
     <xs:complexType>
       <xs:sequence>
