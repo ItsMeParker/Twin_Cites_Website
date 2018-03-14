@@ -509,9 +509,7 @@ function loadTwitter(city)
     });
 }
 
-}
-
-function cityBackground(city)
+function generateRSS(city)
 {
 
     var RSSDiv = document.getElementById("RSSDiv");
