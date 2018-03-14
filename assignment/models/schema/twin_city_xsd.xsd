@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="twin_city_config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uwe_environment"/>
+        <xs:element ref="api"/>
+        <xs:element ref="cities"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uwe_environment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="base_url"/>
+        <xs:element ref="base_path"/>
+        <xs:element ref="my_sql"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="base_url">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="base_path">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="my_sql">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="database"/>
+        <xs:element ref="username"/>
+        <xs:element ref="pword"/>
+        <xs:element ref="database_host"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="database" type="xs:NCName"/>
+  <xs:element name="username" type="xs:NCName"/>
+  <xs:element name="pword" type="xs:NCName"/>
+  <xs:element name="database_host" type="xs:NCName"/>
+  <xs:element name="api">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="google"/>
+        <xs:element ref="yahoo"/>
+        <xs:element ref="flickr_key"/>
+        <xs:element ref="flickr_secret"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="google" type="xs:string"/>
+  <xs:element name="yahoo" type="xs:anyURI"/>
+  <xs:element name="flickr_key" type="xs:string"/>
+  <xs:element name="flickr_secret" type="xs:NCName"/>
+  <xs:element name="cities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="city"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="city">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="woeid" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

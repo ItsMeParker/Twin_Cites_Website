@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+# file name    : twin_city_xml.xml
+# purpose      : assignment website configuration file
+# author       : Alex Foulds, Rob Fry, Connor Parker, Agustin Ovari
+# version      : 2.1 - Added all known values to the project
+# cities       : Leicester & Strasbourg
+
+-->
+
+<twin_city_config>
+
+    <uwe_environment>
+        <base_url>isa.cems.uwe.ac.uk/~c29-parker/Twin_Cities/TwinCities.php</base_url>
+        <base_path><!-- UWE file link for files--></base_path>
+        <my_sql>
+            <database>fet15021296</database>
+            <username>fet15021296</username>
+            <pword>ZuP4i3</pword>
+            <database_host>weeb03.cems.uwe.ac.uk</database_host>
+        </my_sql>
+    </uwe_environment>
+
+
+    <!-- API KEYS/SECRETS -->
+    <api>
+        <google>AIzaSyAiAn_oTuXQ4NQf9rr6LR2YL6Gvt_UKhJ8</google>
+        <!--  AIzaSyCONGcG-MhlId-XYjIGJPwxhLjMWMtEreY, AIzaSyCjqXifq3hv740gNdHTTkZgKJd7W_BqFB4  Key I made since that one didnt work  -->
+        <yahoo>http://query.yahooapis.com/v1/public/yql</yahoo>
+        <flickr_key>37905c305bb608f91b673f9e2a4521b4</flickr_key>
+        <flickr_secret>c8e7bf8f966a1638</flickr_secret>
+    </api>
+
+    <cities>
+        <city name="Leicester" woeid="26062"/>
+
+        <city name="Strasbourg" woeid="627791"/>
+       
+    </cities>
+
+</twin_city_config>
