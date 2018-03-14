@@ -151,9 +151,7 @@
     
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
                         
-                        <div id="RSSDiv">                     
-                            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='rss/generate_rss_feed.php?cid=1'">Generate RSS of x </button>
-                        </div>
+                        <div id="RSSDiv"> </div>
     
                     </div>
 

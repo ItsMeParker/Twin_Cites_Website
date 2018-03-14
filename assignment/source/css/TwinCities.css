@@ -27,6 +27,8 @@
     height: 100%;
 }
 
+/* Divs that hold important content and are changed in the javascript */
+
 #todaysWeatherVertical
 {
 
@@ -53,6 +55,11 @@
 }
 
 #twitterDiv
+{
+
+}
+
+#RSSDiv
 {
 
 }

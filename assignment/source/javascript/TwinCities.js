@@ -24,6 +24,8 @@ function loadDetailsOf(city)
 
     loadTwitter(city);
 
+    generateRSS(city);
+
 }
 
 function cityBackground(city)
@@ -302,13 +304,6 @@ function topScroll()
     document.documentElement.scrollTop = 0;
 }
 
-// will move the veiw so that the locationInfo Div is at the top
-function locationScroll() 
-{
-    var locationDiv = document.getElementById("locationInfo");
-    locationDiv.scrollIntoView();
-}
-
 // will populate the vertical box next to the map with todays weather data
 function weather(city)
 {
@@ -489,3 +484,20 @@ function loadTwitter(city)
     twitterDiv.innerHTML = "Tweets Not Loaded";
 
 }
+
+function cityBackground(city)
+{
+
+    var RSSDiv = document.getElementById("RSSDiv");
+    if (city == 1)
+    {
+        RSSDiv.innerHTML = "<button type=\"button\" class=\"btn btn-primary btn-lg\" onclick=\"location.href='rss/generate_rss_feed.php?cid=1'\">Generate RSS of Leicester </button>";
+    }
+    else if (city == 2)
+    {
+        RSSDiv.innerHTML = "<button type=\"button\" class=\"btn btn-primary btn-lg\" onclick=\"location.href='rss/generate_rss_feed.php?cid=2'\">Generate RSS of Strasbourg</button>";
+    }    
+
+
+}
+
