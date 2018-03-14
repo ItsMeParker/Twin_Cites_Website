@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="css/TwinCities.css" />
     <!-- link to local CSS for ALEX FOULDS Flickr section-->
     <link rel="stylesheet" type="text/css" href="flickr/style.css" />
+    <!-- link to local CSS for AGUSTIN OVARI Twitter section-->
+    <link rel="stylesheet" type="text/css" href="twitter/style.css" />
     <!-- link to local JavaScript -->
     <script type="text/javascript" src="javascript/TwinCities.js"></script>
 
@@ -32,7 +34,7 @@
 
 
                 <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3 verticalMiddle sideBar">
-                    <!-- has no content --> 
+                    <!-- has no content -->
                 </div>
 
                 <div class="col-xs-5 col-sm-4 col-md-3 col-lg-3 verticalMiddle">
@@ -48,27 +50,27 @@
                 </div>
 
                 <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3 verticalMiddle sideBar">
-                    <!-- has no content --> 
+                    <!-- has no content -->
                 </div>
 
             </div>
 
-        </div>  
+        </div>
 
-        <!-- end of one row --> 
+        <!-- end of one row -->
 
         <div class="row">
             <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
-                <!-- has no content --> 
+                <!-- has no content -->
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8  well mainSection">
-                
+
                 <div class="row">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10  well subSection">
-                        
-                        <div id="googleMap"> </div> 
+
+                        <div id="googleMap"> </div>
 
                     </div>
 
@@ -79,17 +81,17 @@
                     </div>
                 </div>
 
-                <div class="row">        
+                <div class="row">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 hidden-lg well subSection">
-                        
+
                         <div id="todaysWeatherHorizontal"> </div>
 
                     </div>
 
                 </div>
 
-                <div class="row">        
+                <div class="row">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
 
@@ -99,11 +101,11 @@
 
                 </div>
 
-                <div class="row">        
+                <div class="row">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
 
-                        <div id="weatherForecast"> 
+                        <div id="weatherForecast">
 
                         </div>
 
@@ -114,11 +116,11 @@
             </div>
 
             <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
-                <!-- has no content --> 
+                <!-- has no content -->
             </div>
-        </div> 
+        </div>
 
-        <!-- end of one row --> 
+        <!-- end of one row -->
 
         <div class="row">
             <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
@@ -127,7 +129,7 @@
 
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 well mainSection">
 
-                <div class="row">        
+                <div class="row">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
 
@@ -137,10 +139,10 @@
 
                 </div>
 
-                <div class="row">        
+                <div class="row">
 
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
-                        
+
                         <div id="twitterDiv"> </div>
 
                     </div>
@@ -148,33 +150,33 @@
                 </div>
 
                 <div class="row">
-    
+
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 well subSection">
-                        
-                        <div id="RSSDiv">                     
+
+                        <div id="RSSDiv">
                             <button type="button" class="btn btn-primary btn-lg" onclick="location.href='rss/generate_rss_feed.php?cid=1'">Generate RSS of x </button>
                         </div>
-    
+
                     </div>
 
-                </div>            
+                </div>
 
             </div>
 
             <div class="hidden-xs hidden-sm col-md-2 col-lg-2 sideBar">
                 This is the right spacer bar that will dissapear when width is sm or smaller
             </div>
-        </div>         
+        </div>
 
-        <!-- end of one row --> 
+        <!-- end of one row -->
 
         <!-- return to top button will no visible untill user scrolls down-->
         <button class="btn btn-primary" onclick="topScroll()" id="returnBtn" title="Return to top">Top</button>
 
-    </div> <!-- end of container-fluid --> 
+    </div> <!-- end of container-fluid -->
 
     <!-- load the details of leicester by default -->
-    <script> loadDetailsOf(1) </script>  
+    <script> loadDetailsOf(1) </script>
 
 </body>
 </html>

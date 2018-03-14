@@ -1,0 +1,87 @@
+body{
+
+}
+.leicesterBG{
+  background-image: url("twitter/Resources/leicesterBG.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 110%;
+  padding: 0;
+  margin: 0;
+}
+.strasBG{
+  background-image: url("twitter/Resources/strasBG.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
+  padding: 0;
+  margin: 0;
+}
+.tweetsCol{
+  display: block;
+  background: rgba(29, 202, 255, 0.5);
+  border-color: #eee #ccc #bbb;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-width: 2px;
+  box-shadow: 0 3px 3px;
+  padding-top: 10px;
+  padding-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-bottom: 5%;
+  margin-top: 0;
+  margin-right: 7%;
+  margin-left: 7%;
+  vertical-align: middle;
+}
+.tweetInBlock{
+
+  display: block;
+  /*some fonts taken from the Twitter pool of fonts available*/
+  font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+  font-size: 14px;
+  border-color: #eee #ccc #000;
+  background-color: #c0deed;
+  border-radius: 7px;
+  border-width: 2px;
+  box-shadow: 0 2px 3px;
+  margin: 5% auto;
+  padding: 2% 5% 5% 5%;
+  max-width: 100%;
+  min-width: 20%;
+}
+
+#tenTweets{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#fiveHashes{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.articleTitle{
+  font-family: sans-serif;
+  color: #1dcaff;
+  text-decoration: none;
+  font-size: 300%;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  text-shadow: #fff 2px 2px 0;
+  position: relative;
+}
+#profilePic{
+  display: block;
+  float: left;
+  margin-right: auto;
+  width: 15%;
+  border-radius: 20%;
+  vertical-align: middle;
+  margin-top: 1%;
+  margin-bottom: auto;
+  margin-right: 28px;
+
+}
