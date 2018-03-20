@@ -1,9 +1,0 @@
-Home Page URL: http://isa.cems.uwe.ac.uk/~c29-parker/dsa/assignment/index.html
-
-Source Code URL: http://isa.cems.uwe.ac.uk/~c29-parker/dsa/assignment/source/index.php
-
-Data Models URL: http://isa.cems.uwe.ac.uk/~c29-parker/dsa/assignment/models/index.html
-
-Data Schema URL: http://isa.cems.uwe.ac.uk/~c29-parker/dsa/assignment/models/schema/index.html
-
-Report URL: http://isa.cems.uwe.ac.uk/~c29-parker/dsa/assignment/greport/index.html
